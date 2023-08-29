@@ -1,9 +1,9 @@
 // importing
 const Users = require('./Users')
-const products = require('./Products')
+const portfolio = require('./Portfolio')
 
 // Export all objects
 module.exports = {
     users: new Users(),
-    products:new products()
+    portfolio:new portfolio()
 }
