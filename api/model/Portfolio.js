@@ -5,12 +5,28 @@ const db = require ("../config")
  
 //-----------------------------------------------
 class Portfolios{
-    // fetch all products
-    fetchProducts(req,res){
+    // fetch all Portfolios
+    fetchPortfolios(req,res){
             const query =`
-            SELECT prodID,prodName,quantity,amount,
-            Category,prodUrl
-            FROM Products;
+            SELECT SELECT
+            Portfolio.portfolioID,
+            Portfolio.userID,
+            Portfolio.accountName,
+            Subject.SubjectID,
+            Subject.subject,
+            Subject.Description,
+            Subject.experience,
+            Subject.price,
+            Subject.email,
+            Subject.country,
+            Subject.city,
+            Subject.linkedinUrl,
+            Subject.instaUrl,
+            Subject.facebookUrl
+        FROM
+            Portfolio
+        JOIN
+            Subject ON Portfolio.portfolioID = Subject.portfolioID;
             `
             db.query(query,
                 (err,results) => {
@@ -21,19 +37,35 @@ class Portfolios{
                     })
                 })
     }
-    // fetch single product
-    fetchProduct(req, res){
+    // fetch single Portfolios
+    fetchPortfolio(req, res){
         const query = `
-        SELECT prodID,prodName,quantity,amount,
-        Category,prodUrl
-        FROM Products
-        WHERE prodID = ?;
+        SELECT SELECT
+        Portfolio.portfolioID,
+        Portfolio.userID,
+        Portfolio.accountName,
+        Subject.SubjectID,
+        Subject.subject,
+        Subject.Description,
+        Subject.experience,
+        Subject.price,
+        Subject.email,
+        Subject.country,
+        Subject.city,
+        Subject.linkedinUrl,
+        Subject.instaUrl,
+        Subject.facebookUrl
+    FROM
+        Portfolio
+    JOIN
+        Subject ON Portfolio.portfolioID = Subject.portfolioID;
+        WHERE Portfolio.portfolioID  = ?;
         `
         db.query(query, [req.params.id], (err, result) => {
             if (err) { 
                 console.error(err);
                 res.status(500).json({
-                    error: "An error occurred while fetching the user.",
+                    error: "An error occurred while fetching the Portfolio.",
                 });
             } else {
                 res.status(200).json({
@@ -43,58 +75,58 @@ class Portfolios{
             }
         });
     }
-    //register
-    registerProduct(req, res) {
+    //register Portfolio
+    registerPortfolio(req, res) {
         const data = req.body;
         const query = `
-        INSERT INTO Products
+        INSERT INTO Portfolio
         SET ?;
         `;
     
         db.query(query, [data], (err) => {
             if (err) {
-                console.error("Error registering product:", err);
+                console.error("Error registering Portfolio:", err);
                 return res.status(500).json({
                     status: 500,
-                    error: "Failed to register the product"
+                    error: "Failed to register the Portfolio"
                 });
             }
     
             res.json({
                 status: res.statusCode,
-                msg: "Product registered successfully"
+                msg: "Portfolio registered successfully"
             });
         });
     }
-    //update product
-    updateProduct(req, res){
+    //update portfolio
+    updatePortfolio(req, res){
         const data = req.body
         const query =`
-        UPDATE Products
+        UPDATE Portfolio
         SET ?
-        WHERE prodID = ?;
+        WHERE portfolioID = ?;
         `
         db.query(query,[data, req.params.id],
             (err) => {
                 if(err) throw err
                 res.json({
                     status: res.statusCode,
-                    msg:"Product has been updated."
+                    msg:"Portfolio has been updated."
                 })
             })
     }
-    //delete product
-    deleteProduct(req,res){
+    //delete portfolio
+    deletePortfolio(req,res){
         const query =
          `
-        DELETE FROM Products
-        WHERE prodID = ${req.params.id};
+        DELETE FROM Portfolio
+        WHERE portfolioID = ${req.params.id};
         `
         db.query(query, (err) => {
             if(err) throw err
             res.json({
         status:res.statusCode,
-        msg:'Product was deleted.'
+        msg:'Portfolio was deleted.'
         })
         })
     }
