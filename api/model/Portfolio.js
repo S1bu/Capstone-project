@@ -100,4 +100,4 @@ class Portfolios{
     }
 }
 
-module.exports  = Products;
+module.exports  = Portfolios;
