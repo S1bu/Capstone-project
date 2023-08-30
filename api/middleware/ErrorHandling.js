@@ -3,7 +3,7 @@ function errorHandling(err,req,res,next){
         let status = err.status || 500
         res.json({
             status,
-            msg:"❌error,try again later."
+            msg:"error,try again later."
         })
     }
     next()

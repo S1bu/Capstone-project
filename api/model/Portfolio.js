@@ -8,25 +8,19 @@ class Portfolios{
     // fetch all Portfolios
     fetchPortfolios(req,res){
             const query =`
-            SELECT SELECT
-            Portfolio.portfolioID,
-            Portfolio.userID,
-            Portfolio.accountName,
-            Subject.SubjectID,
-            Subject.subject,
-            Subject.Description,
-            Subject.experience,
-            Subject.price,
-            Subject.email,
-            Subject.country,
-            Subject.city,
-            Subject.linkedinUrl,
-            Subject.instaUrl,
-            Subject.facebookUrl
-        FROM
-            Portfolio
-        JOIN
-            Subject ON Portfolio.portfolioID = Subject.portfolioID;
+            SELECT   portfolioID,
+            accountName,
+            subject,
+            Description,
+            experience,
+            price,
+            emailAdd,
+            country,
+            city,
+            linkedinUrl,
+            instaUrl,
+            facebookUrl 
+            FROM portfolio 
             `
             db.query(query,
                 (err,results) => {
@@ -40,26 +34,20 @@ class Portfolios{
     // fetch single Portfolios
     fetchPortfolio(req, res){
         const query = `
-        SELECT SELECT
-        Portfolio.portfolioID,
-        Portfolio.userID,
-        Portfolio.accountName,
-        Subject.SubjectID,
-        Subject.subject,
-        Subject.Description,
-        Subject.experience,
-        Subject.price,
-        Subject.email,
-        Subject.country,
-        Subject.city,
-        Subject.linkedinUrl,
-        Subject.instaUrl,
-        Subject.facebookUrl
-    FROM
-        Portfolio
-    JOIN
-        Subject ON Portfolio.portfolioID = Subject.portfolioID;
-        WHERE Portfolio.portfolioID  = ?;
+        SELECT   portfolioID,
+            accountName,
+            subject,
+            Description,
+            experience,
+            price,
+            emailAdd,
+            country,
+            city,
+            linkedinUrl,
+            instaUrl,
+            facebookUrl
+            FROM portfolio 
+        WHERE portfolioID  = ?;
         `
         db.query(query, [req.params.id], (err, result) => {
             if (err) { 
@@ -79,7 +67,7 @@ class Portfolios{
     registerPortfolio(req, res) {
         const data = req.body;
         const query = `
-        INSERT INTO Portfolio
+        INSERT INTO portfolio
         SET ?;
         `;
     
@@ -102,7 +90,7 @@ class Portfolios{
     updatePortfolio(req, res){
         const data = req.body
         const query =`
-        UPDATE Portfolio
+        UPDATE portfolio
         SET ?
         WHERE portfolioID = ?;
         `
@@ -119,7 +107,7 @@ class Portfolios{
     deletePortfolio(req,res){
         const query =
          `
-        DELETE FROM Portfolio
+        DELETE FROM portfolio
         WHERE portfolioID = ${req.params.id};
         `
         db.query(query, (err) => {

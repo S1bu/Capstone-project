@@ -7,8 +7,7 @@ const routes = express.Router();
 
 //----import all model objects----
 const { users } = require("../model");
-const { products } = require("../model");
-
+const { portfolio } = require("../model");
 //--------------------------------------
 //----------------------------------------------------
 //-----------routing to USERS-----------------------
@@ -22,7 +21,7 @@ routes.get("/user/:id", (req, res) => {
 });
  
 //register user
-routes.post("/register", bodyParser.json(), (req, res) => {
+routes.post("user/register", bodyParser.json(), (req, res) => {
   users.register(req, res);
 });
 //update user
@@ -41,25 +40,25 @@ routes.post("/login", bodyParser.json(), (req, res) => {
 //-----------routing to PRODUCTS-----------------------
 
 //get all orders
-routes.get("/products", (req, res) => {
-  products.fetchProducts(req, res);
+routes.get("/portfolios", (req, res) => {
+  portfolio.fetchPortfolios(req, res);
 });
 // getting one order
-routes.get("/product/:id", (req, res) => {
-  products.fetchProduct(req, res);
+routes.get("/portfolio/:id", (req, res) => {
+  portfolio.fetchPortfolio(req, res);
 });
  
 //register user
-routes.post("/product/register", bodyParser.json(), (req, res) => {
-  products.registerProduct(req, res);
+routes.post("/portfolio/register", bodyParser.json(), (req, res) => {
+  portfolio.registerPortfolio(req, res);
 });
 // delete user
-routes.delete("/product/:id", (req, res) => {
-  products.deleteProduct(req, res);
+routes.delete("/portfolio/:id", (req, res) => {
+  portfolio.deletePortfolio(req, res);
 });
 // update user
-routes.patch("/product/:id", bodyParser.json(), (req, res) => {
-  products.updateProduct(req, res);
+routes.patch("/portfolio/:id", bodyParser.json(), (req, res) => {
+  portfolio.updatePortfolio(req, res);
 });
  
 

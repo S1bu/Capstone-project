@@ -6,7 +6,11 @@ class Users{
     //fetch users
     fetchUsers(req, res){
         const query =`
-        SELECT userID,firstName,lastName,emailAdd
+        SELECT userID,
+        FirstName,
+        LastName,
+        emailAdd,
+        Password
         FROM users; `
         db.query(query,
              (err, results) => {
@@ -20,8 +24,12 @@ class Users{
     //fetch single user
     fetchUser(req, res) {
         const query = `
-        SELECT userID,firstName,lastName,emailAdd
-        FROM Users
+        SELECT userID,
+        FirstName,
+        LastName,
+        emailAdd ,
+        Password
+        FROM users
         WHERE userID = ?;
         `;
     
@@ -45,8 +53,12 @@ class Users{
         const {emailAdd, userPass} = req.body // pipeline
         // query
         const query = `
-        SELECT userID,firstName,lastName,emailAdd
-        FROM Users
+        SELECT userID,
+        FirstName,
+        LastName,
+        emailAdd,
+        Password
+        FROM users
         WHERE emailAdd = '${emailAdd}';
         `
         db.query(query, async (err, result)=>{
