@@ -63,9 +63,9 @@ img[alt="logo"]{
 }
 ul{
     list-style: none;
-}z
+}
 li{
-    margin: 20% 0;
+    margin: 23% 0;
 }
 a{
     text-decoration: none;
