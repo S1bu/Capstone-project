@@ -7,8 +7,8 @@
               </form>
         </div>
         <div class="content" v-if="Portfolios">
-            <div class="card" v-for="portfolio in Portfolios" :key="portfolio.portfolioID">
-                <div class="row">
+            
+                <div class="row" v-for="portfolio in Portfolios" :key="portfolio.portfolioID">
                     <button>
                         <div class="col-9">
                             <h4>{{ portfolio.accountName }}</h4>
@@ -19,7 +19,7 @@
                            <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
                         </div>
                     </button>
-                </div>
+                
             </div>
         </div>
         <div class="spin" v-else >
@@ -53,7 +53,7 @@
     width: 90%;
     margin:2% 5%;
  }
- .card{
+ .row{
     border: 1px solid black;
     font-weight: 700;
     margin: 5px;
@@ -69,8 +69,8 @@
     float: right;
  }
  .col-3 img{
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     object-fit: contain;
     aspect-ratio: 3/4;
  }
