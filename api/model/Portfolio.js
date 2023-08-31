@@ -9,6 +9,7 @@ class Portfolios{
     fetchPortfolios(req,res){
             const query =`
             SELECT   portfolioID,
+            portfolioiImageUrl,
             accountName,
             subject,
             Description,
@@ -36,6 +37,7 @@ class Portfolios{
         const query = `
         SELECT   portfolioID,
             accountName,
+             portfolioiImageUrl,
             subject,
             Description,
             experience,
