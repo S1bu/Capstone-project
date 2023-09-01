@@ -1,12 +1,15 @@
 <template>
   <NavBar/>
  <router-view/>
+ <footerComp/>
 </template>
 <script>
 import NavBar from '@/components/navComp.vue'
+import  footerComp from '@/components/footerComp.vue'
  export default {
    components:{
-     NavBar
+     NavBar,
+     footerComp
    }
  }
 </script>

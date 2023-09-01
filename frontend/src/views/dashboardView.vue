@@ -9,23 +9,24 @@
         <div class="content" v-if="Portfolios">
             
                 <div class="row" v-for="portfolio in Portfolios" :key="portfolio.portfolioID">
-                    <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
-                        portfolioiImageUrl: portfolio.portfolioiImageUrl,
-                        accountName: portfolio.accountName,
-                        subject: portfolio.subject,
-                        Description: portfolio.Description,
-                        experience:portfolio.experience,
-                        price:portfolio.price,
-                        emailAdd:portfolio.emailAdd,
-                        country: portfolio.country,
-                        city:portfolio.city,
-                        phone:portfolio.phone,
-                        linkedinUrl:portfolio.linkedinUrl,
-                        instaUrl:portfolio.instaUrl,
-                        facebookUrl:portfolio.facebookUrl
-                      }}"
-                  >
+                  
                     <button>
+                        <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
+                            portfolioiImageUrl: portfolio.portfolioiImageUrl,
+                            accountName: portfolio.accountName,
+                            subject: portfolio.subject,
+                            Description: portfolio.Description,
+                            experience:portfolio.experience,
+                            price:portfolio.price,
+                            emailAdd:portfolio.emailAdd,
+                            country: portfolio.country,
+                            city:portfolio.city,
+                            phone:portfolio.phone,
+                            linkedinUrl:portfolio.linkedinUrl,
+                            instaUrl:portfolio.instaUrl,
+                            facebookUrl:portfolio.facebookUrl
+                          }}"
+                      >
                         <div class="col-9">
                             <h4>{{ portfolio.accountName }}</h4>
                             <p>{{ portfolio.subject }}</p>
@@ -35,8 +36,9 @@
                         <div class="col-3">
                            <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
                         </div>
+                    </router-link>
                     </button>
-                </router-link>
+              
             </div>
         </div>
         <div class="spin" v-else >
@@ -82,6 +84,7 @@
  }
  a{
     text-decoration: none;
+    color:black
  }
  .col-9{
     float: left;
