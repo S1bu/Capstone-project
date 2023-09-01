@@ -25,6 +25,11 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import( '../views/dashboardView.vue')
+  },
+  {
+    path: '/single',
+    name: 'single',
+    component: () => import( '../views/singleView.vue')
   }
 ]
 const router = createRouter({

@@ -13,7 +13,7 @@
               </button>
             </div>
             <div class="offcanvas-body">
-              <div>
+             
                     <ul>
                         <li>
                             <router-link to="/"><i class="bi bi-house-fill"></i>  home</router-link>
@@ -31,7 +31,7 @@
                             <router-link to="/contact"><i class="bi bi-telephone-fill"></i>  Contact</router-link>
                         </li>
                      </ul>
-              </div>
+            
             </div>
           </div>
     </nav>
