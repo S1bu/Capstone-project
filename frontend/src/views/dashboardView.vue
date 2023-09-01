@@ -9,17 +9,34 @@
         <div class="content" v-if="Portfolios">
             
                 <div class="row" v-for="portfolio in Portfolios" :key="portfolio.portfolioID">
+                    <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
+                        portfolioiImageUrl: portfolio.portfolioiImageUrl,
+                        accountName: portfolio.accountName,
+                        subject: portfolio.subject,
+                        Description: portfolio.Description,
+                        experience:portfolio.experience,
+                        price:portfolio.price,
+                        emailAdd:portfolio.emailAdd,
+                        country: portfolio.country,
+                        city:portfolio.city,
+                        phone:portfolio.phone,
+                        linkedinUrl:portfolio.linkedinUrl,
+                        instaUrl:portfolio.instaUrl,
+                        facebookUrl:portfolio.facebookUrl
+                      }}"
+                  >
                     <button>
                         <div class="col-9">
                             <h4>{{ portfolio.accountName }}</h4>
-                            <h5>{{ portfolio.subject }}</h5>
-                            <h6>R {{ portfolio.price }} <i class="bi bi-cash-coin"></i></h6>
+                            <p>{{ portfolio.subject }}</p>
+                            <p>{{ portfolio.country }}</p>
+                            <p>R {{ portfolio.price }} <i style="color:green" class="bi bi-cash-coin"></i></p>
                         </div>
                         <div class="col-3">
                            <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
                         </div>
                     </button>
-                
+                </router-link>
             </div>
         </div>
         <div class="spin" v-else >
@@ -56,10 +73,15 @@
  .row{
     border: 1px solid black;
     font-weight: 700;
-    margin: 5px;
+    margin: 10px;
+    width:100%
  }
- h4+h5+h6{
-    font-weight: 700;
+ h4{
+    font-weight: 900;
+    color: #12021E;
+ }
+ a{
+    text-decoration: none;
  }
  .col-9{
     float: left;
@@ -67,6 +89,7 @@
  }
  .col-3{
     float: right;
+    margin-top: 5%;
  }
  .col-3 img{
     width: 70px;
@@ -81,7 +104,19 @@
  }
  .content{
     display: grid;
-    grid-template-columns:auto auto auto ;
-    justify-content: space-around;
+    grid-template-columns:auto auto;
  }
+ /*media query for  < 700*/
+ @media (width < 700px) {
+    .content{ 
+        grid-template-columns:auto;
+ 
+     }
+  }
+   /*media query for  < 300*/
+   @media (width < 300px) {
+    h1 {
+      margin-top: 60%;
+    }
+  }
 </style>
