@@ -1,7 +1,12 @@
 <template>
     <nav>
+        <div class="menu" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+            <button>
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
         <center>
-            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+            <button class="btn" type="button">
                 <img src="https://i.postimg.cc/LXcsPVqh/logo-200x200-1.png" alt="logo" >
               </button>
         </center>
@@ -28,7 +33,7 @@
                             <router-link to="/portfolio"><i class="bi bi-person-plus-fill"></i> add portfolio</router-link>
                         </li>
                         <li>
-                            <router-link to="/contact"><i class="bi bi-telephone-fill"></i>  Contact</router-link>
+                            <router-link to="/contact"><i class="bi bi-envelope-at-fill"></i>  Contact</router-link>
                         </li>
                      </ul>
             
@@ -41,6 +46,18 @@
     }
 </script>
 <style scoped>
+
+.menu button{
+    background-color: #030212;
+    padding: 5px;
+    border: 1px solid #030212;
+    margin: 10px;
+}
+.menu button i{
+    color: #d5d5d5;
+    font-size: 20px;
+
+}
 nav{
     background-color: #030212;
 }

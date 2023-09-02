@@ -3,29 +3,30 @@
         <div class="search-container">
             <form class="d-flex text-center" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn" type="submit">Search</button>
               </form>
         </div>
         <div class="content" v-if="Portfolios">
             
                 <div class="row" v-for="portfolio in Portfolios" :key="portfolio.portfolioID">
-                    <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
-                        portfolioiImageUrl: portfolio.portfolioiImageUrl,
-                        accountName: portfolio.accountName,
-                        subject: portfolio.subject,
-                        Description: portfolio.Description,
-                        experience:portfolio.experience,
-                        price:portfolio.price,
-                        emailAdd:portfolio.emailAdd,
-                        country: portfolio.country,
-                        city:portfolio.city,
-                        phone:portfolio.phone,
-                        linkedinUrl:portfolio.linkedinUrl,
-                        instaUrl:portfolio.instaUrl,
-                        facebookUrl:portfolio.facebookUrl
-                      }}"
-                  >
+                  
                     <button>
+                        <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
+                            portfolioiImageUrl: portfolio.portfolioiImageUrl,
+                            accountName: portfolio.accountName,
+                            subject: portfolio.subject,
+                            Description: portfolio.Description,
+                            experience:portfolio.experience,
+                            price:portfolio.price,
+                            emailAdd:portfolio.emailAdd,
+                            country: portfolio.country,
+                            city:portfolio.city,
+                            phone:portfolio.phone,
+                            linkedinUrl:portfolio.linkedinUrl,
+                            instaUrl:portfolio.instaUrl,
+                            facebookUrl:portfolio.facebookUrl
+                          }}"
+                      >
                         <div class="col-9">
                             <h4>{{ portfolio.accountName }}</h4>
                             <p>{{ portfolio.subject }}</p>
@@ -35,8 +36,9 @@
                         <div class="col-3">
                            <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
                         </div>
+                    </router-link>
                     </button>
-                </router-link>
+              
             </div>
         </div>
         <div class="spin" v-else >
@@ -63,6 +65,16 @@
     }
 </script>
 <style  scoped>
+.btn{
+    background-color: #D5D5DD;
+    color: #12021E;
+}
+
+.btn:hover{
+    background-color: #12021E ;
+    color: #D5D5DD;
+}
+
  .content{
    margin: 0 5%;
  }
@@ -82,6 +94,7 @@
  }
  a{
     text-decoration: none;
+    color:black
  }
  .col-9{
     float: left;
