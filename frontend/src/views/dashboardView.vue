@@ -2,13 +2,14 @@
     <div>
         <div class="search-container">
             <form class="d-flex text-center" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn" type="submit">Search</button>
+                <input class="form-control me-2" type="search" v-model="searchQuery" placeholder="Search" aria-label="Search">
+                <!-- <button class="btn" @click="filteredPortfolios">Search</button> -->
               </form>
         </div>
         <div class="content" v-if="Portfolios">
             
-                <div class="row" v-for="portfolio in Portfolios" :key="portfolio.portfolioID">
+            <div class="row" v-for="portfolio in filteredPortfolios" :key="portfolio.portfolioID">
+
                   
                     <button>
                         <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
@@ -49,21 +50,48 @@
     </div>
 </template>
 <script>
- import Spinner from '@/components/spinnerComp.vue'
-    export default {
-        components:{
-        Spinner
+import Spinner from '@/components/spinnerComp.vue';
+
+export default {
+  components: {
+    Spinner
+  },
+  data() {
+    return {
+      searchQuery: ""
+    };
+  },
+  computed: {
+    Portfolios() {
+      return this.$store.state.Portfolios;
     },
-    computed: {
-        Portfolios() {
-            return this.$store.state.Portfolios;
-        },
-    },
-    mounted() {
-        this.$store.dispatch('fetchPortfolios');
-    },
+    filteredPortfolios() {
+      // Convert searchQuery to lowercase for case-insensitive search
+      const searchQuery = this.searchQuery.toLowerCase();
+
+      return this.Portfolios.filter((portfolio) => {
+        const accountName = portfolio.accountName.toLowerCase(); //filter on accountname
+        const subject =  portfolio.subject.toLowerCase();  //filter on subject
+        const country = portfolio.country.toLowerCase(); //filter on country
+        const city = portfolio.city.toLowerCase(); //filter on city
+        const price = portfolio.price.toString().toLowerCase(); //filter on prie
+
+        return (
+          accountName.includes(searchQuery) || 
+          subject.includes(searchQuery) ||
+          country.includes(searchQuery) ||
+          city.includes(searchQuery) ||
+          price.includes(searchQuery)
+        );
+      });
     }
+  },
+  mounted() {
+    this.$store.dispatch('fetchPortfolios');
+  }
+};
 </script>
+
 <style  scoped>
 .btn{
     background-color: #D5D5DD;
