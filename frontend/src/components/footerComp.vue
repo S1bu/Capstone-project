@@ -9,17 +9,22 @@
                 <ul>
                     <li>
                         <router-link to="/contact">
-                            contact
+                            <i class="bi bi-envelope-at-fill"></i> contact
                         </router-link>
                     </li>
                     <li>
                         <router-link to="/dashboard">
-                            dashboard
+                            <i class="bi bi-person-vcard"></i>  dashboard
                         </router-link>
                     </li>
                     <li>
                         <router-link to="/fav">
-                            favourtites
+                            <i class="bi bi-heart-fill"></i>  favourtites
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/portfolio">
+                            <i class="bi bi-person-plus-fill"></i>  add portfolio
                         </router-link>
                     </li>
                 </ul>
@@ -27,19 +32,19 @@
               <div class="col">
                 <ul>
                     <li>
-                        <router-link to="/contact">
-                            contact
-                        </router-link>
+                        <p>
+                            <i class="bi bi-telephone-fill"></i>  0609479185
+                        </p>
                     </li>
                     <li>
-                        <router-link to="/dashboard">
-                            dashboard
-                        </router-link>
+                        <p>
+                            <i class="bi bi-envelope-at-fill"></i> Sibusisodyan@gmail.com
+                        </p>
                     </li>
                     <li>
-                        <router-link to="/fav">
-                            favourtites
-                        </router-link>
+                        <p>
+                            <i class="bi bi-geo-alt-fill"></i> 314 Imam Haron Rd, Lansdowne, Cape Town, South Africa
+                        </p>
                     </li>
                 </ul>
               </div>
@@ -51,6 +56,17 @@
             </div>
           </div>
     </div>
+
+    <!-- <router-link to="/fav"><i class="bi bi-heart-fill"></i>  Favourites</router-link>
+</li>
+<li>
+    <router-link to="/dashboard"><i class="bi bi-person-vcard"></i> Dashboard</router-link>
+</li>
+<li>
+    <router-link to="/portfolio"><i class="bi bi-person-plus-fill"></i> add portfolio</router-link>
+</li>
+<li>
+    <router-link to="/contact"><i class="bi bi-telephone-fill"></i>  Contact</router-link> -->
 </template>
 
 <script>
@@ -60,9 +76,12 @@
 </script>
 
 <style scoped>
+.col img{
+    margin-top:5%;
+}
 .copy-right{
    
-    color: white;
+    color: #d5d5dd;
     font-weight: 700;
     padding: 10px;
     height: 10vh;
@@ -72,10 +91,14 @@ li{
     list-style-type: none;
     margin: 50px;
 }
+p{
+    color: #d5d5dd;
+    font-weight: 700; 
+}
 
 a{
 text-decoration: none;
-color: white;
+color: #d5d5dd;
 font-weight: 700;
 }
 .container{

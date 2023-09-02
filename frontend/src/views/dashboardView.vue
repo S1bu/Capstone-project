@@ -3,7 +3,7 @@
         <div class="search-container">
             <form class="d-flex text-center" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn" type="submit">Search</button>
               </form>
         </div>
         <div class="content" v-if="Portfolios">
@@ -65,6 +65,16 @@
     }
 </script>
 <style  scoped>
+.btn{
+    background-color: #D5D5DD;
+    color: #12021E;
+}
+
+.btn:hover{
+    background-color: #12021E ;
+    color: #D5D5DD;
+}
+
  .content{
    margin: 0 5%;
  }
