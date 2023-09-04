@@ -5,10 +5,21 @@
                 <input class="form-control me-2" type="search" v-model="searchQuery" placeholder="Search" aria-label="Search">
                 <!-- <button class="btn" @click="filteredPortfolios">Search</button> -->
               </form>
+              <br>
+              <br>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <ul class="dropdown-menu">
+                  <li><button @click="sortByName">A-z <i class="bi bi-sort-alpha-up"></i></button></li>
+                  <li><button @click="sortByPrice">Price <i style="color:green" class="bi bi-cash-coin"></i></button></li>
+                </ul>
+              </div>
         </div>
         <div class="content" v-if="Portfolios">
             
-            <div class="row" v-for="portfolio in filteredPortfolios" :key="portfolio.portfolioID">
+            <div class="row" v-for="portfolio in sortedPortfolios" :key="portfolio.portfolioID">
 
                   
                     <button>
@@ -58,33 +69,58 @@ export default {
   },
   data() {
     return {
-      searchQuery: ""
+      searchQuery: "",
+      sortBy: "", // Store the current sorting option ("name" or "price")
     };
   },
   computed: {
     Portfolios() {
       return this.$store.state.Portfolios;
     },
+    sortedPortfolios() {
+      const filteredPortfolios = this.filteredPortfolios;
+
+      if (this.sortBy === "name") {
+        return filteredPortfolios.slice().sort((a, b) => {
+          return a.accountName.localeCompare(b.accountName);
+        });
+      } else if (this.sortBy === "price") {
+        return filteredPortfolios.slice().sort((a, b) => {
+          return a.price - b.price;
+        });
+      }
+
+      return filteredPortfolios;
+    },
     filteredPortfolios() {
-      // Convert searchQuery to lowercase for case-insensitive search
-      const searchQuery = this.searchQuery.toLowerCase();
+      // Your existing filtering code
+         // Convert searchQuery to lowercase for case-insensitive search
+    const searchQuery = this.searchQuery.toLowerCase();
 
-      return this.Portfolios.filter((portfolio) => {
-        const accountName = portfolio.accountName.toLowerCase(); //filter on accountname
-        const subject =  portfolio.subject.toLowerCase();  //filter on subject
-        const country = portfolio.country.toLowerCase(); //filter on country
-        const city = portfolio.city.toLowerCase(); //filter on city
-        const price = portfolio.price.toString().toLowerCase(); //filter on prie
+return this.Portfolios.filter((portfolio) => {
+  const accountName = portfolio.accountName.toLowerCase(); //filter on accountname
+  const subject = portfolio.subject.toLowerCase();  //filter on subject
+  const country = portfolio.country.toLowerCase(); //filter on country
+  const city = portfolio.city.toLowerCase(); //filter on city
+  const price = portfolio.price.toString().toLowerCase(); //filter on price
 
-        return (
-          accountName.includes(searchQuery) || 
-          subject.includes(searchQuery) ||
-          country.includes(searchQuery) ||
-          city.includes(searchQuery) ||
-          price.includes(searchQuery)
-        );
-      });
-    }
+  return (
+    accountName.includes(searchQuery) || 
+    subject.includes(searchQuery) ||
+    country.includes(searchQuery) ||
+    city.includes(searchQuery) ||
+    price.includes(searchQuery)
+  );
+});
+    },
+  },
+  methods: {
+    sortByName() {
+      this.sortBy = "name";
+    },
+    sortByPrice() {
+      this.sortBy = "price";
+    },
   },
   mounted() {
     this.$store.dispatch('fetchPortfolios');
@@ -97,7 +133,6 @@ export default {
     background-color: #D5D5DD;
     color: #12021E;
 }
-
 .btn:hover{
     background-color: #12021E ;
     color: #D5D5DD;
@@ -114,7 +149,7 @@ export default {
     border: 1px solid black;
     font-weight: 700;
     margin: 10px;
-    width:100%
+    width:95%
  }
  h4{
     font-weight: 900;
@@ -137,27 +172,31 @@ export default {
     height: 70px;
     object-fit: contain;
     aspect-ratio: 3/4;
- }
+ } 
  button{
     background-color: #D5D5DD;
     border: 1px solid #D5D5DD;
     border-radius: 10px;
  }
+ 
  .content{
     display: grid;
     grid-template-columns:auto auto;
  }
+
  /*media query for  < 700*/
  @media (width < 700px) {
-    .content{ 
+        .content{ 
         grid-template-columns:auto;
- 
      }
   }
    /*media query for  < 300*/
    @media (width < 300px) {
     h1 {
-      margin-top: 60%;
+      margin-top: 60%;  
     }
   }
 </style>
+filteredPortfolios() {
+ 
+  },
