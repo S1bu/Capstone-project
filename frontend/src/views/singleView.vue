@@ -17,18 +17,18 @@
                   <div class="col">
                     <p>{{ $route.query.subject}}</p>
                     <p>{{$route.query.experience}} years of experience</p>
-                    <p>R {{$route.query.price}} <i style="color:green" class="bi bi-cash-coin"></i></p>
+                    <p><i style="color:green" class="bi bi-cash-coin"></i> R {{$route.query.price}} </p>
                   </div>
                   <div class="col">
-                    <p>{{$route.query.phone}}</p>
-                    <p>{{$route.query.emailAdd}}</p>
-                    <p>{{$route.query.country}}</p>
-                    <p>{{$route.query.city}}</p>
+                    <p><i class="bi bi-phone"></i> {{$route.query.phone}}</p>
+                    <p><i class="bi bi-envelope-at-fill"></i> {{$route.query.emailAdd}}</p>
+                    <p><i class="bi bi-globe-europe-africa"></i> {{$route.query.country}}</p>
+                    <p><i class="bi bi-geo-alt-fill"></i> {{$route.query.city}}</p>
                     <p><a href="#"><i class="bi bi-linkedin"></i></a> <a href="#"><i class="bi bi-instagram"></i></a></p>
                   </div>
                 </div>
                 <div class="row">
-                  <p>{{$route.query.Description}}</p>
+                  <p><i class="bi bi-pencil-fill"></i> {{$route.query.Description}}</p>
                 </div>
               </div>
         </div>
@@ -59,5 +59,8 @@
 .back i{
 color: black;
 font-size: 20px;
+}
+i{
+    color: #12021E;
 }
 </style>

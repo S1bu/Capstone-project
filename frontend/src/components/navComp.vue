@@ -35,6 +35,9 @@
                         <li>
                             <router-link to="/contact"><i class="bi bi-envelope-at-fill"></i>  Contact</router-link>
                         </li>
+                        <li>
+                            <router-link to="/admin"><i class="bi bi-envelope-at-fill"></i>  admin</router-link>
+                        </li>
                      </ul>
             
             </div>

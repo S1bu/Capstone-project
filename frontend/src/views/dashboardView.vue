@@ -9,7 +9,7 @@
               <br>
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown button
+                  Sort
                 </button>
                 <ul class="dropdown-menu">
                   <li><button @click="sortByName">A-z <i class="bi bi-sort-alpha-up"></i></button></li>
@@ -41,8 +41,9 @@
                       >
                         <div class="col-9">
                             <h4>{{ portfolio.accountName }}</h4>
+                            <p>{{ portfolio.phone }}</p>
                             <p>{{ portfolio.subject }}</p>
-                            <p>{{ portfolio.country }}</p>
+                            <p><i class="bi bi-globe-europe-africa"></i> {{ portfolio.country }}</p>
                             <p>R {{ portfolio.price }} <i style="color:green" class="bi bi-cash-coin"></i></p>
                         </div>
                         <div class="col-3">
@@ -197,6 +198,3 @@ return this.Portfolios.filter((portfolio) => {
     }
   }
 </style>
-filteredPortfolios() {
- 
-  },
