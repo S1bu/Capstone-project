@@ -30,6 +30,11 @@ const routes = [
     path: '/single',
     name: 'single',
     component: () => import( '../views/singleView.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import( '../views/adminView.vue')
   }
 ]
 const router = createRouter({
