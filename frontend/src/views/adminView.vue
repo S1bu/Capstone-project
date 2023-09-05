@@ -1,22 +1,13 @@
 <template>
     <div class="text-align-center">
         <br>
-        <div class="container text-center">
-            <div class="row align-items-start">
-              <div class="col">
-                <form class="d-flex text-center" role="search">
-                    <input class="form-control me-2" type="search" v-model="searchQueryUser" placeholder="Search Users" aria-label="Search">
-                  </form>
-              </div>
-              <br>
-            
-              <div class="col">
-                <form class="d-flex text-center" role="search">
-                    <input class="form-control me-2" type="search" v-model="searchQueryPorfolio" placeholder="Search Portfolios" aria-label="Search">
-                  </form>
-              </div>
-            </div>
-          </div>
+       <br>
+       <div class="search-holder">
+        <form class="d-flex text-center" role="search">
+          <input class="form-control me-2" type="search" v-model="searchQueryUser" placeholder="Search Users" aria-label="Search">
+        </form>
+       </div>
+          <br>
           <br>
       <table border="1" v-if="Users">
         <table border="1" v-if="Users">
@@ -33,8 +24,8 @@
               <td>{{ user.FirstName }}</td>
               <td>{{ user.LastName }}</td>
               <td>{{ user.emailAdd }}</td>
-              <td><button class="btn btn-danger"><i class="bi bi-pen-fill"></i></button></td>
-              <td><button class="btn btn-success"><i class="bi bi-trash3-fill"></i></button></td>
+              <td><button class="btn btn-success"><i class="bi bi-pen-fill"></i></button></td>
+              <td><button class="btn btn-danger"  @click="deleteUser(user.userID)"><i class="bi bi-trash3-fill"></i></button></td>
             </tr>
           </table> 
       </table>
@@ -44,6 +35,14 @@
         </center>
       </div>
       <br>
+      <br>
+    
+      <div class="search-holder">
+        <form class="d-flex text-center" role="search">
+          <input class="form-control me-2"  type="search" v-model="searchQueryPorfolio" placeholder="Search Portfolios" aria-label="Search">
+        </form>
+      </div>
+
       <br>
       <table border="1" v-if="Portfolios">
         <tr>
@@ -60,7 +59,7 @@
           <td>{{ portfolio.accountName }}</td>
           <td>{{ portfolio.emailAdd }}</td>
           <td><button class="btn btn-danger"><i class="bi bi-pen-fill"></i></button></td>
-          <td><button class="btn btn-success"><i class="bi bi-trash3-fill"></i></button></td>
+          <td><button class="btn btn-success" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i></button></td>
         </tr>
       </table>
       <div class="spin" v-else>
@@ -99,10 +98,14 @@
         return this.Portfolios.filter((portfolio) => {
           const emailAdd = portfolio.emailAdd.toLowerCase();
           const accountName = portfolio.accountName.toLowerCase(); // filter on accountname
+          const userID = portfolio.userID.toString().toLowerCase();
+          const portfolioID = portfolio.portfolioID.toString().toLowerCase()
           
-          
-          return( accountName.includes(searchQueryPorfolio) ||
-          emailAdd.includes(searchQueryPorfolio)
+          return(
+          accountName.includes(searchQueryPorfolio) ||
+          emailAdd.includes(searchQueryPorfolio) ||
+          userID.includes(searchQueryPorfolio) ||
+          portfolioID.includes(searchQueryPorfolio)
           )
         });
       },
@@ -114,14 +117,41 @@
           const emailAdd = user.emailAdd.toLowerCase();
           const FirstName = user.FirstName.toLowerCase(); // filter on accountname
           const LastName = user.LastName.toLowerCase();
+          const userID = user.userID.toString().toLowerCase();
+          // const portfolioID = user.portfolioID.toString().toLowerCase()
           
           return(
           FirstName.includes(searchQueryUser) ||
           emailAdd.includes(searchQueryUser) ||
-          LastName.includes(searchQueryUser)
+          LastName.includes(searchQueryUser) ||
+          userID.includes(searchQueryUser) 
+          // portfolioID.includes(searchQueryUser)
           )
         });
-      }
+      },
+      
+    },
+    methods:{
+      deleteUser(userId) {
+  // Dispatch an action to delete the user by userId
+  this.$store.dispatch('deleteUser', userId)
+    .then(() => {
+      window.location.reload();
+    })
+    .catch(error => {
+      console.error("Error deleting user:", error);
+    });
+},
+deletePortfolio(portfolioID) {
+  // Dispatch an action to delete the user by userId
+  this.$store.dispatch('deletePortfolio', portfolioID)
+    .then(() => {
+      window.location.reload();
+    })
+    .catch(error => {
+      console.error("Error deleting portfolio:", error);
+    });
+},
     },
     mounted() {
       this.$store.dispatch('fetchPortfolios');
@@ -140,6 +170,15 @@
     border: 1px solid #d5d5d5;
     padding: 10px;
     text-align: center;
+  }
+
+  .form-control{
+    width: 90%;
+    text-align: center;
+  }
+  .search-holder{
+    text-align: center;
+    margin:0 10% ;
   }
   </style>
   
