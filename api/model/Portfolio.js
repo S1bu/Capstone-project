@@ -99,7 +99,7 @@ class Portfolios{
         SET ?
         WHERE portfolioID = ${req.params.id};
         `
-        db.query(query,[data, req.params.id],
+        db.query(query,[data],
             (err) => {
                 if(err) throw err
                 res.json({
