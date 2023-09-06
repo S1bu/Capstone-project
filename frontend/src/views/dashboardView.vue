@@ -41,10 +41,10 @@
                       >
                         <div class="col-9">
                             <h4>{{ portfolio.accountName }}</h4>
-                            <p>{{ portfolio.phone }}</p>
-                            <p>{{ portfolio.subject }}</p>
+                            <p><i class="bi bi-phone"></i> {{ portfolio.phone }}</p>
+                            <p><i class="bi bi-bookshelf"></i> {{ portfolio.subject }}</p>
                             <p><i class="bi bi-globe-europe-africa"></i> {{ portfolio.country }}</p>
-                            <p>R {{ portfolio.price }} <i style="color:green" class="bi bi-cash-coin"></i></p>
+                            <p><i style="color:green" class="bi bi-cash-coin"></i> R {{ portfolio.price }}</p>
                         </div>
                         <div class="col-3">
                            <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
@@ -150,8 +150,9 @@ return this.Portfolios.filter((portfolio) => {
     border: 1px solid black;
     font-weight: 700;
     margin: 10px;
-    width:95%
+    width:95%;
  }
+ 
  h4{
     font-weight: 900;
     color: #12021E;
