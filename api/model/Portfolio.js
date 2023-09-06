@@ -97,7 +97,7 @@ class Portfolios{
         const query =`
         UPDATE portfolio
         SET ?
-        WHERE portfolioID = ?;
+        WHERE portfolioID = ${req.params.id};
         `
         db.query(query,[data, req.params.id],
             (err) => {
