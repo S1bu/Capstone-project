@@ -45,6 +45,10 @@ export default createStore({
       // Implement logic to remove the user from the state
       state.users = state.users.filter(user => user.id !== userId);
     },
+    updatePortfolios(state, portfolio){
+      state.Portfolios = state.Portfolios.map(u => u.id === portfolio.id ? portfolio : u)
+    },
+
   },
   actions: {
     async fetchPortfolios(context) {
@@ -86,24 +90,23 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the portfolio");
       }
     },
-    async addPortfolio(context, newPortfolioData) {
+     // updatePortfolio
+     async updatePortfolio(context, payload) {
       try {
-        // Send a POST request to your API to create a new portfolio
-        const response = await axios.post(`${intelliCoach}portfolio/register`, newPortfolioData);
-  
-        // Assuming the response contains the created portfolio
-        const newPortfolio = response.data;
-  
-        // Commit the mutation to add the portfolio to the state
-        context.commit('addPortfolio', newPortfolio);
-  
-        // You can also set a success message or perform any other necessary actions.
-        context.commit('setMsg', 'Portfolio added successfully');
+        const response = await axios.patch(`${intelliCoach}/portfolio/${payload.id}`.data);
+        const { msg } = response.data;
+    
+        if (msg) {
+          context.commit("setMsg", msg);
+        } else {
+          context.commit("setMsg", "Portfolio updated successfully");
+   
+        }
       } catch (e) {
-        // Handle errors, such as network issues or server errors
-        context.commit('setMsg', 'An error occurred while adding the portfolio');
+        context.commit("setMsg", "An error occurred while updating the portfolio");
       }
     },
+
     
   },
   modules: {},

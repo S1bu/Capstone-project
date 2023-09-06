@@ -35,6 +35,11 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import( '../views/adminView.vue')
+  },
+  {
+    path: '/editPortfolio',
+    name: 'editPortfolio',
+    component: () => import( '../views/editPortfolioView.vue')
   }
 ]
 const router = createRouter({

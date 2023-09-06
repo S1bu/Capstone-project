@@ -43,21 +43,21 @@
               </div>
                 <!-- price  -->
                 <div class="mb-3 row">
-                  <label for="price" class="col-sm-2 col-form-label"><i class="bi bi-123"></i>price</label>
+                  <label for="price" class="col-sm-2 col-form-label"><i class="bi bi-coin"></i> price</label>
                   <div class="col-sm-9">
                     <input type="number" class="form-control" id="price" name="price" v-model="price" required>
                   </div>
                 </div>
                  <!-- email  -->
                  <div class="mb-3 row">
-                  <label for="emailAdd" class="col-sm-2 col-form-label"><i class="bi bi-123"></i>email</label>
+                  <label for="emailAdd" class="col-sm-2 col-form-label"><i class="bi bi-envelope-at-fill"></i> email</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control" id="emailAdd" name="emailAdd" v-model="emailAdd" required>
                   </div>
                 </div>
                    <!-- phone  -->
                    <div class="mb-3 row">
-                    <label for="emailAdd" class="col-sm-2 col-form-label"><i class="bi bi-123"></i>phone</label>
+                    <label for="emailAdd" class="col-sm-2 col-form-label"><i class="bi bi-phone"></i> phone</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="emailAdd" name="emailAdd" v-model="phone" required>
                     </div>
@@ -110,7 +110,6 @@ export default {
   data() {
     return {
       newPortfolioData: {
-      userID: 1,
       portfolioiImage: "",
       accountName: "",
       subject: "",
@@ -131,9 +130,9 @@ export default {
     async createPortfolio() {
       // Dispatch the addPortfolio action with the form data
       try {
-        await this.$store.dispatch('registerPortfolio', this.newPortfolioData);
+        await this.$store.dispatch('addPortfolio', this.newPortfolioData);
         // Optionally, reset the form or navigate to a different page
-        this.resetForm();
+        // this.resetForm();
       } catch (error) {
         // Handle errors
         console.error('Error creating portfolio:', error);

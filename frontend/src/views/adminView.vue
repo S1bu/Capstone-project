@@ -24,7 +24,7 @@
               <td>{{ user.FirstName }}</td>
               <td>{{ user.LastName }}</td>
               <td>{{ user.emailAdd }}</td>
-              <td><button class="btn btn-success"><i class="bi bi-pen-fill"></i></button></td>
+              <td><button class="btn btn-warning"><i class="bi bi-pen-fill"></i></button></td>
               <td><button class="btn btn-danger"  @click="deleteUser(user.userID)"><i class="bi bi-trash3-fill"></i></button></td>
             </tr>
           </table> 
@@ -58,9 +58,10 @@
           <td>{{ portfolio.portfolioID }}</td>
           <td>{{ portfolio.accountName }}</td>
           <td>{{ portfolio.emailAdd }}</td>
-          <td><button class="btn btn-danger"><i class="bi bi-pen-fill"></i></button></td>
-          <td><button class="btn btn-success" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i></button></td>
+          <td><router-link to="/editPortfolio"><button class="btn btn-warning" ><i class="bi bi-pen-fill"></i></button></router-link></td>
+          <td><button class="btn btn-danger" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i></button></td>
         </tr>
+     
       </table>
       <div class="spin" v-else>
         <center>
@@ -82,6 +83,15 @@
         searchQueryPorfolio: "",
         searchQueryUser:"",
         sortBy: "", // Store the current sorting option ("name" or "price")
+        editPortfolioData: {
+        // Initialize this object to store the data for editing
+        userID: '',
+        portfolioID: '',
+        accountName: '',
+        emailAdd: '',
+        // Add other fields as needed
+      },
+      isEditing: false, // A flag to track if the edit mode is active
       };
     },
     computed: {
@@ -152,6 +162,7 @@ deletePortfolio(portfolioID) {
       console.error("Error deleting portfolio:", error);
     });
 },
+ 
     },
     mounted() {
       this.$store.dispatch('fetchPortfolios');
