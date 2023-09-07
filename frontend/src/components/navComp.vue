@@ -38,6 +38,12 @@
                         <li>
                             <router-link to="/admin"><i class="bi bi-envelope-at-fill"></i>  admin</router-link>
                         </li>
+                        <li>
+                            <router-link to="/register"><i class="bi bi-envelope-at-fill"></i> register</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/login" @click="logOut"><i class="bi bi-envelope-at-fill"></i> logout</router-link>
+                        </li>
                      </ul>
             
             </div>
@@ -46,7 +52,11 @@
 </template>
 <script>
     export default {
+        methods: {
+    logOut() {
+      this.$store.dispatch("logOut")
     }
+    }}
 </script>
 <style scoped>
 
