@@ -7,10 +7,13 @@ class Users{
     fetchUsers(req, res){
         const query =`
         SELECT userID,
+        userPic,
         FirstName,
         LastName,
         emailAdd,
-        Password
+        age,
+        userRole,
+        uPassword
         FROM users; `
         db.query(query,
              (err, results) => {
@@ -24,12 +27,15 @@ class Users{
     //fetch single user
     fetchUser(req, res) {
         const query = `
-        SELECT userID,
+         SELECT userID,
+        userPic,
         FirstName,
         LastName,
-        emailAdd ,
-        Password
-        FROM users
+        emailAdd,
+        age,
+        userRole,
+        uPassword
+        FROM users;
         WHERE userID = ?;
         `;
     
@@ -50,14 +56,14 @@ class Users{
     //---------------------------------
     //login a user
     login(req, res) {
-        const {emailAdd, userPass} = req.body // pipeline
+        const {emailAdd, uPassword} = req.body // pipeline
         // query
         const query = `
         SELECT userID,
         FirstName,
         LastName,
         emailAdd,
-        Password
+        uPassword
         FROM users
         WHERE emailAdd = '${emailAdd}';
         `
@@ -70,14 +76,14 @@ class Users{
                 })
             }else{
                 await compare(userPass,
-                    result[0].userPass,
+                    result[0].uPassword,
                     (cErr, cResult)=>{
                         if(cErr) throw cErr
                         // Create a token
                         const token =
                         createToken({
                             emailAdd,
-                            userPass
+                            uPassword
                         })
                     
                         if(cResult) {
@@ -104,7 +110,7 @@ class Users{
         data.userPass = await hash(data.userPass,15)
         const user = {
             emailAdd:data.emailAdd,
-            userPass:data.userPass
+            uPassword:data.uPassword
         }
         const query = `
         INSERT INTO users
@@ -122,9 +128,9 @@ class Users{
 //update user
     updateUser(req,res){
         const data = req.body
-        if(data.userPass){
-            data.userPass = 
-            hashSync(data.userPass, 15)
+        if(data.uPassword){
+            data.uPassword = 
+            hashSync(data.uPassword, 10)
         }
     const query =`
         UPDATE users
