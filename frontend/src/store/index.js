@@ -1,5 +1,11 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
+import sweet from "sweetalert";
+import router from "@/router";
+import { useCookies } from "vue3-cookies";
+import authenticateUser from '@/services/authenticateUser';
+
+const { cookies } = useCookies();
 
 const intelliCoach = "https://intellicoach.onrender.com/";
 
@@ -34,9 +40,6 @@ export default createStore({
     },
     setSpinner(state, value) {
       state.spinner = value;
-    },
-    setToken(state, token) {
-      state.token = token;
     },
     setMsg(state, msg) {
       state.msg = msg;
@@ -90,24 +93,64 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the portfolio");
       }
     },
-     // updatePortfolio
-     async updatePortfolio(context, payload) {
+    async register(context, payload) {
       try {
-        const response = await axios.patch(`${intelliCoach}/portfolio/${payload.id}`.data);
-        const { msg } = response.data;
-    
+        const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data;
         if (msg) {
-          context.commit("setMsg", msg);
+          sweet({
+            title: "Registration",
+            text: msg,
+            icon: "success",
+            timer: 4000,
+          });
+          context.dispatch("fetchUsers");
+          router.push({ name: "login" });
         } else {
-          context.commit("setMsg", "Portfolio updated successfully");
-   
+          sweet({
+            title: "Error",
+            text: msg,
+            icon: "error",
+            timer: 4000
+          });
         }
       } catch (e) {
-        context.commit("setMsg", "An error occurred while updating the portfolio");
+        context.commit("setMsg", "An error has occured");
       }
     },
-
-    
+    async login(context, payload) {
+      try {
+        const { msg, token, result } = (
+          await axios.post(`${intelliCoach}login`, payload)
+        ).data;
+        // console.log( msg, token, result);
+        if (result) {
+          context.commit("setUser", { result, msg });
+          cookies.set("human", { msg, token, result });
+          authenticateUser.applyToken(token);
+          sweet({
+            title: msg,
+            text: `Welcome back ${result?.FirstName} ${result?.LastName}`,
+            icon: "success",
+            timer: 4000,
+          });
+          router.push({ name: "dashboard" });
+        } else {
+          sweet({
+            title: "Error",
+            text: msg,
+            icon: "error",
+            timer: 4000,
+          });
+        }
+      } catch (e) {
+        context.commit("setMsg", "An error has occured");
+      }
+    },
+    // logout
+    async logOut(context) {
+      context.commit("setUser")
+      cookies.remove("human")
+    }
   },
   modules: {},
 });

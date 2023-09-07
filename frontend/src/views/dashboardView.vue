@@ -70,7 +70,7 @@ export default {
   },
   data() {
     return {
-      searchQuery: "",
+      searchQuery: "", //store the search
       sortBy: "", // Store the current sorting option ("name" or "price")
     };
   },

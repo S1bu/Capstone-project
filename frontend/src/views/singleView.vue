@@ -71,7 +71,7 @@
                 <!-- report -->
                 <div class="mb-3">
                   <label for="report" class="form-label">Explain the situation</label>
-                  <textarea type="text" class="form-control" name="report" id="report"></textarea>
+                  <textarea type="text" class="form-control" name="report" id="report" placeholder="Please specify name of the account you wish to report"></textarea>
                 </div>
         
                 <button type="submit" class="submit">Submit</button>

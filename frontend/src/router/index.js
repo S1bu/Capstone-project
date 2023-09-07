@@ -1,10 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useCookies } from 'vue3-cookies'
+const {cookies}= useCookies()
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/fav',
@@ -24,7 +26,12 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import( '../views/dashboardView.vue')
+    component: () => import( '../views/dashboardView.vue'),
+      beforeEnter() {
+      if (!cookies.get('human')) {
+        router.push({ name: 'login' })
+      }
+    },
   },
   {
     path: '/single',
@@ -40,6 +47,16 @@ const routes = [
     path: '/editPortfolio',
     name: 'editPortfolio',
     component: () => import( '../views/editPortfolioView.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import( '../views/registerView.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import( '../views/loginView.vue')
   }
 ]
 const router = createRouter({

@@ -16,6 +16,7 @@
               <th>FirstName</th>
               <th>LastName</th>
               <th>emailAdd</th>
+              <th>user image</th>
               <th>edit</th>
               <th>delete</th>
             </tr>
@@ -24,6 +25,7 @@
               <td>{{ user.FirstName }}</td>
               <td>{{ user.LastName }}</td>
               <td>{{ user.emailAdd }}</td>
+              <td><img :src="user.userPic" alt=""></td>
               <td><button class="btn btn-warning"><i class="bi bi-pen-fill"></i></button></td>
               <td><button class="btn btn-danger"  @click="deleteUser(user.userID)"><i class="bi bi-trash3-fill"></i></button></td>
             </tr>
@@ -191,5 +193,12 @@ deletePortfolio(portfolioID) {
     text-align: center;
     margin:0 10% ;
   }
+  img{
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    aspect-ratio: 3/4;
+  }
+
   </style>
   

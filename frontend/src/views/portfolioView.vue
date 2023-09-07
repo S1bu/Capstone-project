@@ -127,23 +127,9 @@ export default {
     };
   },
   methods: {
-    async createPortfolio() {
-      // Dispatch the addPortfolio action with the form data
-      try {
-        await this.$store.dispatch('addPortfolio', this.newPortfolioData);
-        // Optionally, reset the form or navigate to a different page
-        // this.resetForm();
-      } catch (error) {
-        // Handle errors
-        console.error('Error creating portfolio:', error);
-      }
-    },
-    resetForm() {
-      // Reset the form input values
-      this.newPortfolioData = {
-        // Reset properties to their initial values
-      };
-    },
+    createPortfolio() {
+   
+    }
   },
 };
 </script>
