@@ -146,11 +146,35 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
-    // logout
     async logOut(context) {
-      context.commit("setUser")
-      cookies.remove("human")
+        context.commit("setUser")
+        cookies.remove("human")
+    },
+    async registerPortfolio(context, newPortfolio) {
+      try {
+        const { msg } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
+        if (msg) {
+          sweet({
+            title: "Register Portfolio",
+            text: msg,
+            icon: "success",
+            timer: 4000,
+          });
+          context.dispatch("fetchPortfolios");
+          // router.push({ name: "login" });
+        } else {
+          sweet({
+            title: "Error",
+            text: msg,
+            icon: "error",
+            timer: 4000
+          });
+        }
+      } catch (e) {
+        context.commit("setMsg", "An error has occured");
+      }
     }
+ 
   },
   modules: {},
 });
