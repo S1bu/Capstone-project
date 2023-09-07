@@ -52,6 +52,7 @@
           <th>portfolioID</th>
           <th>accountName</th>
           <th>emailAdd</th>
+          <th>Subject</th>
           <th>edit</th>
           <th>delete</th>
         </tr>
@@ -60,6 +61,7 @@
           <td>{{ portfolio.portfolioID }}</td>
           <td>{{ portfolio.accountName }}</td>
           <td>{{ portfolio.emailAdd }}</td>
+          <td>{{ portfolio.subject }}</td>
           <td><router-link to="/editPortfolio"><button class="btn btn-warning" ><i class="bi bi-pen-fill"></i></button></router-link></td>
           <td><button class="btn btn-danger" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i></button></td>
         </tr>
@@ -110,14 +112,12 @@
         return this.Portfolios.filter((portfolio) => {
           const emailAdd = portfolio.emailAdd.toLowerCase();
           const accountName = portfolio.accountName.toLowerCase(); // filter on accountname
-          const userID = portfolio.userID.toString().toLowerCase();
-          const portfolioID = portfolio.portfolioID.toString().toLowerCase()
+          const subject = portfolio.subject.toLowerCase();
           
           return(
           accountName.includes(searchQueryPorfolio) ||
           emailAdd.includes(searchQueryPorfolio) ||
-          userID.includes(searchQueryPorfolio) ||
-          portfolioID.includes(searchQueryPorfolio)
+          subject.includes(searchQueryPorfolio)
           )
         });
       },
@@ -130,14 +130,13 @@
           const FirstName = user.FirstName.toLowerCase(); // filter on accountname
           const LastName = user.LastName.toLowerCase();
           const userID = user.userID.toString().toLowerCase();
-          // const portfolioID = user.portfolioID.toString().toLowerCase()
           
           return(
           FirstName.includes(searchQueryUser) ||
           emailAdd.includes(searchQueryUser) ||
           LastName.includes(searchQueryUser) ||
           userID.includes(searchQueryUser) 
-          // portfolioID.includes(searchQueryUser)
+        
           )
         });
       },
