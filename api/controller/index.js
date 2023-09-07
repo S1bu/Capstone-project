@@ -37,26 +37,26 @@ routes.post("/login", bodyParser.json(), (req, res) => {
     users.login(req, res);
   });
 //---------------------------------------------------
-//-----------routing to PRODUCTS-----------------------
+//-----------PORTFOLIO-----------------------
 
-//get all orders
+//get all portfolio
 routes.get("/portfolios", (req, res) => {
   portfolio.fetchPortfolios(req, res);
 });
-// getting one order
+// getting one portfolio
 routes.get("/portfolio/:id", (req, res) => {
   portfolio.fetchPortfolio(req, res);
 });
  
-//register user
+//register portfolio
 routes.post("/portfolio/register", bodyParser.json(), (req, res) => {
   portfolio.registerPortfolio(req, res);
 });
-// delete user
+// delete portfolio
 routes.delete("/portfolio/:id", (req, res) => {
   portfolio.deletePortfolio(req, res);
 });
-// update user
+// update portfolio
 routes.patch("/portfolio/:id", bodyParser.json(), (req, res) => {
   portfolio.updatePortfolio(req, res);
 });
