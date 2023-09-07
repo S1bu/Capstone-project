@@ -8,7 +8,7 @@ class Portfolios{
     // fetch all Portfolios
     fetchPortfolios(req,res){
             const query =`
-            SELECT  DISTINCT portfolioID,
+            SELECT  portfolioID,
             userID,
             portfolioiImageUrl,
             accountName,
