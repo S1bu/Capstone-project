@@ -75,7 +75,7 @@ class Users{
                     msg: "You provided a wrong email."
                 })
             }else{
-                await compare(userPass,
+                await compare(uPassword,
                     result[0].uPassword,
                     (cErr, cResult)=>{
                         if(cErr) throw cErr
