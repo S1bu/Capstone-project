@@ -21,7 +21,7 @@ routes.get("/user/:id", (req, res) => {
 });
  
 //register user
-routes.post("user/register", bodyParser.json(), (req, res) => {
+routes.post("/register", bodyParser.json(), (req, res) => {
   users.register(req, res);
 });
 //update user
