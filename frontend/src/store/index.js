@@ -35,9 +35,9 @@ export default createStore({
     setPortfolio(state, portfolio) {
       state.portfolio = portfolio;
     },
-    addPortfolio(state, newPortfolio) {
-      state.portfolio.push(newPortfolio);
-    },
+    // addPortfolio(state, newPortfolio) {
+    //   state.portfolio.push(newPortfolio);
+    // },
     setSpinner(state, value) {
       state.spinner = value;
     },
@@ -48,9 +48,9 @@ export default createStore({
       // Implement logic to remove the user from the state
       state.users = state.users.filter(user => user.id !== userId);
     },
-    updatePortfolios(state, portfolio){
-      state.Portfolios = state.Portfolios.map(u => u.id === portfolio.id ? portfolio : u)
-    },
+    // updatePortfolios(state, portfolio){
+    //   state.Portfolios = state.Portfolios.map(u => u.id === portfolio.id ? portfolio : u)
+    // },
 
   },
   actions: {
@@ -160,8 +160,8 @@ export default createStore({
             icon: "success",
             timer: 4000,
           });
-          context.dispatch("fetchPortfolios");
-          // router.push({ name: "login" });
+          context.dispatch("fetchPortfolio");
+          router.push({ name: "dashboard" });
         } else {
           sweet({
             title: "Error",

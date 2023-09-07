@@ -98,7 +98,7 @@
                   </div>
                 </div>
               <center>
-                <button type="submit" @click="createPortfolio">
+                <button type="submit">
                     Register
                 </button>
               </center>
