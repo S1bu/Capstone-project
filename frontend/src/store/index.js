@@ -62,14 +62,6 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
-    async fetchUsers(context) {
-      try {
-        const { data } = await axios.get(`${intelliCoach}users`);
-        context.commit("setUsers", data.results);
-      } catch (e) {
-        context.commit("setMsg", "An error occurred");
-      }
-    },
     async deleteUser(context, userID) {
       try {
         // Send a DELETE request to your API to delete the user
@@ -95,8 +87,8 @@ export default createStore({
     },
     async register(context, payload) {
       try {
-        const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data;
-        if (msg) {
+        const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data; //posting the payload
+        if (msg) { //if payload posted give us a sweet message
           sweet({
             title: "Registration",
             text: msg,
@@ -105,7 +97,7 @@ export default createStore({
           });
           context.dispatch("fetchUsers");
           router.push({ name: "login" });
-        } else {
+        } else { //if not posted then give us this sweet error
           sweet({
             title: "Error",
             text: msg,
@@ -133,7 +125,7 @@ export default createStore({
             icon: "success",
             timer: 4000,
           });
-          router.push({ name: "dashboard" });
+          router.push({ name: "dashboard" }); //page i want to go after
         } else {
           sweet({
             title: "Error",
@@ -146,6 +138,7 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
+    
     async logOut(context) {
         context.commit("setUser")
         cookies.remove("human")
@@ -161,7 +154,7 @@ export default createStore({
             timer: 4000,
           });
           context.dispatch("fetchPortfolios");
-          // router.push({ name: "login" });
+          router.push({ name: "dashboard" });
         } else {
           sweet({
             title: "Error",

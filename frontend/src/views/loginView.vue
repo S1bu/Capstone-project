@@ -43,6 +43,7 @@
   methods: {
     login() {
       this.$store.dispatch("login", this.payload);
+      // return this.$store.state.Portfolio;
     },
   },
   beforeCreate() {
