@@ -21,6 +21,9 @@
              
                     <ul>
                         <li>
+                            <router-link to="/profile"><i class="bi bi-person-circle"></i> Profile</router-link>
+                        </li>
+                        <li>
                             <router-link to="/"><i class="bi bi-house-fill"></i>  home</router-link>
                         </li>
                         <li>

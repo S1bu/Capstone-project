@@ -62,7 +62,23 @@
           <td>{{ portfolio.accountName }}</td>
           <td>{{ portfolio.emailAdd }}</td>
           <td>{{ portfolio.subject }}</td>
-          <td><router-link to="/editPortfolio"><button class="btn btn-warning" ><i class="bi bi-pen-fill"></i></button></router-link></td>
+          <td>
+            <router-link :to="{ name: 'editPortfolio', params: { id: portfolio.portfolioID }, query: {
+              portfolioiImageUrl: portfolio.portfolioiImageUrl,
+              accountName: portfolio.accountName,
+              subject: portfolio.subject,
+              Description: portfolio.Description,
+              experience:portfolio.experience,
+              price:portfolio.price,
+              emailAdd:portfolio.emailAdd,
+              country: portfolio.country,
+              city:portfolio.city,
+              phone:portfolio.phone,
+              linkedinUrl:portfolio.linkedinUrl,
+              instaUrl:portfolio.instaUrl,
+              facebookUrl:portfolio.facebookUrl
+            }}">
+            <button class="btn btn-warning" ><i class="bi bi-pen-fill"></i></button></router-link></td>
           <td><button class="btn btn-danger" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i></button></td>
         </tr>
      
