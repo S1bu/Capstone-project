@@ -54,6 +54,7 @@ export default createStore({
 
   },
   actions: {
+    //fetching all portfolios
     async fetchPortfolios(context) {
       try {
         const { data } = await axios.get(`${intelliCoach}portfolios`);
@@ -62,6 +63,30 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
+    // fetching all users
+    async fetchUsers(context) {
+      try {
+        const { data } = await axios.get(`${intelliCoach}users`);
+        context.commit("setUsers", data.results);
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
+      }
+    },
+    //fetching one user
+    async fetchUser(context) {
+      try {
+        const cookieValue = cookies.get("human");
+        const { token, result } = cookieValue;
+        context.commit("setUser", { result });
+        await axios.get(`${intelliCoach}user/${result.userID}`).then(response => {
+          context.commit("setUser", response.data.results);
+          cookies.set("human", { token, result });
+        });
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
+      }
+    },
+    //delete user
     async deleteUser(context, userID) {
       try {
         // Send a DELETE request to your API to delete the user
@@ -75,6 +100,7 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the user");
       }
     },
+    //delete portfolio
     async deletePortfolio(context, portfolioID) {
       try {
         // Send a DELETE request to your API to delete the portfolio
@@ -85,6 +111,7 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the portfolio");
       }
     },
+    //register user
     async register(context, payload) {
       try {
         const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data; //posting the payload
@@ -109,10 +136,11 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
+    //login user
     async login(context, payload) {
       try {
         const { msg, token, result } = (
-          await axios.post(`${intelliCoach}login`, payload)
+          await axios.post(`${intelliCoach}login`, payload) //sending the payload to that route
         ).data;
         // console.log( msg, token, result);
         if (result) {
@@ -138,23 +166,27 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
-    
+    //login user
     async logOut(context) {
         context.commit("setUser")
         cookies.remove("human")
     },
+    //create Portfolio
     async registerPortfolio(context, newPortfolio) {
       try {
-        const { msg } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
-        if (msg) {
+        
+        const { msg,token, result } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
+        if (result) {
+          cookies.set("human", { msg, token, result });
+          authenticateUser.applyToken(token);
           sweet({
-            title: "Register Portfolio",
-            text: msg,
+            title: "msg",
+            text: `Registered under user ${result?.userID} ` ,
             icon: "success",
             timer: 4000,
           });
           context.dispatch("fetchPortfolios");
-          router.push({ name: "dashboard" });
+          router.push({ name: "dashboard" }); //Programmatically navigate to a new URL
         } else {
           sweet({
             title: "Error",

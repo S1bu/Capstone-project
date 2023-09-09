@@ -9,7 +9,7 @@
        </div>
           <br>
           <br>
-      <table border="1" v-if="Users">
+   
         <table border="1" v-if="Users">
             <tr>
               <th>userID</th>
@@ -30,7 +30,7 @@
               <td><button class="btn btn-danger"  @click="deleteUser(user.userID)"><i class="bi bi-trash3-fill"></i></button></td>
             </tr>
           </table> 
-      </table>
+     
       <div class="spin" v-else>
         <center>
           <Spinner />
