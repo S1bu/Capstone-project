@@ -54,6 +54,7 @@ export default createStore({
 
   },
   actions: {
+    //fetching all
     async fetchPortfolios(context) {
       try {
         const { data } = await axios.get(`${intelliCoach}portfolios`);
@@ -62,32 +63,55 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
+
+    // fetching all users
+    async fetchUsers(context) {
+      try {
+        const { data } = await axios.get(`${intelliCoach}users`);
+        context.commit("setUsers", data.results);
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
+      }
+    },
+    //fetching one user
+    async fetchUser(context) {
+      try {
+        const cookieValue = cookies.get("human");
+        const { token, result } = cookieValue;
+        context.commit("setUser", { result });
+        await axios.get(`${intelliCoach}user/${result.userID}`).then(response => {
+          context.commit("setUser", response.data.results);
+          cookies.set("human", { token, result });
+        });
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
+      }
+    },
+    //delete user
     async deleteUser(context, userID) {
       try {
-        // Send a DELETE request to your API to delete the user
-        await axios.delete(`${intelliCoach}user/${userID}`);
-        // If the deletion is successful, you can commit the removeUser mutation
-        context.commit("deleteUser", userID);
-        // You can also set a success message or perform any other necessary actions.
-        context.commit("setMsg", "User deleted successfully");
+      
+        await axios.delete(`${intelliCoach}user/${userID}`); //delete request
+        context.commit("deleteUser", userID); //commit remover mutation
+        context.commit("setMsg", "User deleted successfully"); //success msg
       } catch (e) {
-        // Handle errors, such as network issues or server errors
-        context.commit("setMsg", "An error occurred while deleting the user");
+        context.commit("setMsg", "An error occurred while deleting the user");//error handling
       }
     },
+    //delete portfolio
     async deletePortfolio(context, portfolioID) {
       try {
-        // Send a DELETE request to your API to delete the portfolio
-        await axios.delete(`${intelliCoach}portfolio/${portfolioID}`);
-        context.commit("deletePortfolio", portfolioID);
-        context.commit("setMsg", "Portfolio deleted successfully");
+        await axios.delete(`${intelliCoach}portfolio/${portfolioID}`); //delete request
+        context.commit("deletePortfolio", portfolioID); 
+        context.commit("setMsg", "Portfolio deleted successfully");//success msg
       } catch (e) {
-        context.commit("setMsg", "An error occurred while deleting the portfolio");
+        context.commit("setMsg", "An error occurred while deleting the portfolio");//error msg
       }
     },
+    //register user
     async register(context, payload) {
       try {
-        const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data; //posting the payload
+        const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data; //post request
         if (msg) { //if payload posted give us a sweet message
           sweet({
             title: "Registration",
@@ -109,10 +133,11 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
+    //login user
     async login(context, payload) {
       try {
         const { msg, token, result } = (
-          await axios.post(`${intelliCoach}login`, payload)
+          await axios.post(`${intelliCoach}login`, payload) //login request`
         ).data;
         // console.log( msg, token, result);
         if (result) {
@@ -138,23 +163,27 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
-    
+    //login user
     async logOut(context) {
         context.commit("setUser")
         cookies.remove("human")
     },
+    //create Portfolio
     async registerPortfolio(context, newPortfolio) {
       try {
-        const { msg } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
-        if (msg) {
+        
+        const { msg,token, result } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
+        if (result) {
+          cookies.set("human", { msg, token, result });
+          authenticateUser.applyToken(token);
           sweet({
-            title: "Register Portfolio",
-            text: msg,
+            title: "msg",
+            text: `Registered under user ${result?.userID} ` ,
             icon: "success",
             timer: 4000,
           });
           context.dispatch("fetchPortfolios");
-          router.push({ name: "dashboard" });
+          router.push({ name: "dashboard" }); //Programmatically navigate to a new URL
         } else {
           sweet({
             title: "Error",
