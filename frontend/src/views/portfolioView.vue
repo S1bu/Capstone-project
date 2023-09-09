@@ -106,6 +106,8 @@
     </div>
 </template>
 <script>
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
 export default {
   data() {
     return {
@@ -128,7 +130,10 @@ export default {
   },
   methods: {
     createPortfolio() {
-      this.$store.dispatch('registerPortfolio', this.newPortfolio)
+      const cookieValue = cookies.get("human");
+      const { result } = cookieValue;
+      this.newPortfolio.userID = result.userID; // Assigning userID from cookie
+      this.$store.dispatch('registerPortfolio', this.newPortfolio);
     }
   },
 };

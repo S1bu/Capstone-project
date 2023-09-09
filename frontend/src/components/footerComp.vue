@@ -2,8 +2,31 @@
     <div>
         <div class="container text-center">
             <div class="row align-items-start">
-              <div class="col">
-                <img src="https://i.postimg.cc/LXcsPVqh/logo-200x200-1.png" alt="">
+             
+                <div class="col">
+                    <ul>
+                        <li>
+                            <router-link to="/contact">
+                                <i class="bi bi-envelope-at-fill"></i> contact
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link to="/dashboard">
+                                <i class="bi bi-person-vcard"></i>  dashboard
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link to="/fav">
+                                <i class="bi bi-heart-fill"></i>  favourtites
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link to="/portfolio">
+                                <i class="bi bi-person-plus-fill"></i>  add portfolio
+                            </router-link>
+                        </li>
+                    </ul>
+                
               </div>
               <div class="col">
                 <ul>

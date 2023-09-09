@@ -46,7 +46,7 @@
       </div>
 
       <br>
-      <table border="1" v-if="Portfolios">
+      <table border="1" v-if="Portfolios" >
         <tr>
           <th>userID</th>
           <th>portfolioID</th>
@@ -215,5 +215,8 @@ deletePortfolio(portfolioID) {
     aspect-ratio: 3/4;
   }
 
+ /* table{
+    overflow-x: auto;
+  }*/
   </style>
   

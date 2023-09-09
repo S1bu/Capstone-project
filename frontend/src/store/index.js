@@ -54,7 +54,7 @@ export default createStore({
 
   },
   actions: {
-    //fetching all portfolios
+    //fetching all
     async fetchPortfolios(context) {
       try {
         const { data } = await axios.get(`${intelliCoach}portfolios`);
@@ -63,6 +63,7 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
+
     // fetching all users
     async fetchUsers(context) {
       try {
@@ -89,32 +90,28 @@ export default createStore({
     //delete user
     async deleteUser(context, userID) {
       try {
-        // Send a DELETE request to your API to delete the user
-        await axios.delete(`${intelliCoach}user/${userID}`);
-        // If the deletion is successful, you can commit the removeUser mutation
-        context.commit("deleteUser", userID);
-        // You can also set a success message or perform any other necessary actions.
-        context.commit("setMsg", "User deleted successfully");
+      
+        await axios.delete(`${intelliCoach}user/${userID}`); //delete request
+        context.commit("deleteUser", userID); //commit remover mutation
+        context.commit("setMsg", "User deleted successfully"); //success msg
       } catch (e) {
-        // Handle errors, such as network issues or server errors
-        context.commit("setMsg", "An error occurred while deleting the user");
+        context.commit("setMsg", "An error occurred while deleting the user");//error handling
       }
     },
     //delete portfolio
     async deletePortfolio(context, portfolioID) {
       try {
-        // Send a DELETE request to your API to delete the portfolio
-        await axios.delete(`${intelliCoach}portfolio/${portfolioID}`);
-        context.commit("deletePortfolio", portfolioID);
-        context.commit("setMsg", "Portfolio deleted successfully");
+        await axios.delete(`${intelliCoach}portfolio/${portfolioID}`); //delete request
+        context.commit("deletePortfolio", portfolioID); 
+        context.commit("setMsg", "Portfolio deleted successfully");//success msg
       } catch (e) {
-        context.commit("setMsg", "An error occurred while deleting the portfolio");
+        context.commit("setMsg", "An error occurred while deleting the portfolio");//error msg
       }
     },
     //register user
     async register(context, payload) {
       try {
-        const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data; //posting the payload
+        const { msg } = (await axios.post(`${intelliCoach}register`, payload)).data; //post request
         if (msg) { //if payload posted give us a sweet message
           sweet({
             title: "Registration",
@@ -140,7 +137,7 @@ export default createStore({
     async login(context, payload) {
       try {
         const { msg, token, result } = (
-          await axios.post(`${intelliCoach}login`, payload) //sending the payload to that route
+          await axios.post(`${intelliCoach}login`, payload) //login request`
         ).data;
         // console.log( msg, token, result);
         if (result) {
