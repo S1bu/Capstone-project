@@ -19,10 +19,6 @@ routes.get("/users", (req, res) => {
 routes.get("/user/:id", (req, res) => {
   users.fetchUser(req, res);
 });
-//fetch user along with its port
-routes.get("/user_port/:id", (req, res) => {
-  portfolio.fetchUser_Port(req, res);
-});
 //register user
 routes.post("/register", bodyParser.json(), (req, res) => {
   users.register(req, res);
