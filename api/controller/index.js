@@ -19,7 +19,10 @@ routes.get("/users", (req, res) => {
 routes.get("/user/:id", (req, res) => {
   users.fetchUser(req, res);
 });
- 
+//fetch user along with its port
+routes.get("/user_port", (req, res) => {
+  portfolio.fetchUser_Port(req, res);
+});
 //register user
 routes.post("/register", bodyParser.json(), (req, res) => {
   users.register(req, res);
@@ -49,7 +52,7 @@ routes.get("/portfolio/:id", (req, res) => {
 });
  
 //register portfolio
-routes.post("/portfolio/register", bodyParser.json(), (req, res) => {
+routes.post("/portfolio/register/:id", bodyParser.json(), (req, res) => {
   portfolio.registerPortfolio(req, res);
 });
 // delete portfolio
