@@ -53,41 +53,7 @@ class Users{
             }
         });
     }
-    //-----------------------------------
-     //fetch single user
-     fetchUser_Port(req, res) {
-        const userID = req.params.userID; // Assuming you get the userID from the request params
-        const query = `
-            SELECT 
-                u.userID,
-                p.portfolioID,
-                p.accountName,
-                p.portfolioiImageUrl,
-                p.subject,
-                p.Description,
-                p.experience,
-                p.price,
-                p.emailAdd,
-                p.phone,
-                p.country,
-                p.city,
-                p.linkedinUrl,
-                p.instaUrl,
-                p.facebookUrl
-            FROM 
-                users u
-            INNER JOIN 
-                portfolio p ON u.userID = p.userID
-            WHERE u.userID = ?;`;
-    
-        db.query(query, [userID], (err, results) => {
-            if (err) throw err;
-            res.json({
-                status: res.statusCode,
-                results
-            });
-        });
-    }
+    //--------------------------------
     
     //---------------------------------
     //login a user
