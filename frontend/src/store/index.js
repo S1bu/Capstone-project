@@ -98,6 +98,17 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the user");//error handling
       }
     },
+     //update user
+     async updateUser(context, userID) {
+      try {
+
+        await axios.patch(`${intelliCoach}user/${userID}`); //delete request
+        context.commit("updateUser", userID); //commit remover mutation
+        context.commit("setMsg", "User updated successfully"); //success msg
+      } catch (e) {
+        context.commit("setMsg", "An error occurred while deleting the user");//error handling
+      }
+    },
     //delete portfolio
     async deletePortfolio(context, portfolioID) {
       try {

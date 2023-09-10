@@ -24,48 +24,64 @@
             <p>facebookUrl</p>
             <h3></h3>
           </div>
+         
+        </div>
+        <div class="col-12 text-center">
+          <button class="btn"><i class="bi bi-pen-fill"></i>edit details</button>
+          <router-link to="/portfolio"><button class="btn"><i class="bi bi-person-plus-fill"></i>Create portfolio</button></router-link>
         </div>
     </div>
   </div>
   <br>
+  <div class="heading">
+    <h1>My portfolios</h1>
+  </div>
   <div class="content" v-if="Portfolios">
+   
+   
             
     <div class="row" v-for="portfolio in  matchuserID" :key="portfolio.portfolioID">
 
           
             <button class="thebtn">
-                <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
-                    portfolioiImageUrl: portfolio.portfolioiImageUrl,
-                    accountName: portfolio.accountName,
-                    subject: portfolio.subject,
-                    Description: portfolio.Description,
-                    experience:portfolio.experience,
-                    price:portfolio.price,
-                    emailAdd:portfolio.emailAdd,
-                    country: portfolio.country,
-                    city:portfolio.city,
-                    phone:portfolio.phone,
-                    linkedinUrl:portfolio.linkedinUrl,
-                    instaUrl:portfolio.instaUrl,
-                    facebookUrl:portfolio.facebookUrl
-                  }}"
-              >
+                
                 <div class="col-9">
                     <h4>{{ portfolio.accountName }}</h4>
                     <p><i class="bi bi-phone"></i> {{ portfolio.phone }}</p>
                     <p><i class="bi bi-bookshelf"></i> {{ portfolio.subject }}</p>
                     <p><i class="bi bi-globe-europe-africa"></i> {{ portfolio.country }}</p>
                     <p><i style="color:green" class="bi bi-cash-coin"></i> R {{ portfolio.price }}</p>
-                    <button class="btn btn-danger" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i></button> 
-                    <button class="btn btn-warning"><i class="bi bi-pen"></i></button> 
+                 
                 </div>
                 <div class="col-3">
                    
                    <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
 
                 </div>
-             
-            </router-link>
+                <div class="button_holder">
+                  <div class="col-12">
+                    <button class="btn" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i>Delete</button> 
+
+                    <router-link :to="{ name: 'Singlepro', params: { id: portfolio.portfolioID }, query: {
+                      portfolioiImageUrl: portfolio.portfolioiImageUrl,
+                      accountName: portfolio.accountName,
+                      subject: portfolio.subject,
+                      Description: portfolio.Description,
+                      experience:portfolio.experience,
+                      price:portfolio.price,
+                      emailAdd:portfolio.emailAdd,
+                      country: portfolio.country,
+                      city:portfolio.city,
+                      phone:portfolio.phone,
+                      linkedinUrl:portfolio.linkedinUrl,
+                      instaUrl:portfolio.instaUrl,
+                      facebookUrl:portfolio.facebookUrl
+                    }}"
+                > 
+                    <button class="btn"><i class="bi bi-three-dots-vertical"></i>View more</button>
+                     </router-link>
+                  </div>
+                </div>
             </button>
       
     </div>
@@ -103,6 +119,18 @@ const { cookies } = useCookies();
       return this.Portfolios.filter(portfolio => portfolio.userID == userId);
     }
         },
+        methods:{
+          deletePortfolio(portfolioID) {
+  // Dispatch an action to delete the user by userId
+  this.$store.dispatch('deletePortfolio', portfolioID)
+    .then(() => {
+      window.location.reload();
+    })
+    .catch(error => {
+      console.error("Error deleting portfolio:", error);
+    });
+},
+        },
         mounted() {
     this.$store.dispatch('fetchUser');
     this.$store.dispatch('fetchPortfolios');
@@ -125,9 +153,7 @@ width: 90%;
     width: 200px;
 }
 
-.content{
-    margin: 0 5%;
-  }
+
   .search-container{
      width: 90%;
      margin:2% 5%;
@@ -165,17 +191,49 @@ width: 90%;
      background-color: #d5d5d5;
      border: 1px solid #d5d5d5;
      border-radius: 10px;
+     width: 400px;
   }
   
   .content{
      display: grid;
      grid-template-columns:auto auto;
+     justify-content: center;
   }
 
+.btn{
+  margin: 2px;
+  color: #d5d5d5;
+  background-color: #12021E;
+}
 
+.btn:hover{
+  animation: tada; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 2s; /* don't forget to set a duration! */
+  color: #12021E;
+  background-color:#d5d5d5;
+}
+.btn i{
+  color: #d5d5d5;
+}
+.btn i:hover{
+  color: #12021E;
+  background-color:#d5d5d5;  
+}
+.heading{
+color:#d5d5d5;
+font-weight:900;
+  padding:10px;
+  text-align:center;
+}
   @media (width < 700px) {
      .content{
      grid-template-columns:auto;
   }
+  .thebtn{
+    width: 90%;
+ }
+ .row{
+  width:100%;
+ }
   }
 </style>

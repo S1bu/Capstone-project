@@ -26,8 +26,12 @@ export default {
   margin-top:5% ;
   text-align: center;
 }
+a{
+  text-decoration:none;
+  color: #d5d5d5;
+}
 img{
-  width: 300px;
+  width: 250px;
 }
 button{
   margin: 5%;

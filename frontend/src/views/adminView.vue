@@ -169,6 +169,9 @@
       console.error("Error deleting user:", error);
     });
 },
+updateUser(userID){
+  this.$store.dispatch('updateUser', userID)
+},
 deletePortfolio(portfolioID) {
   // Dispatch an action to delete the user by userId
   this.$store.dispatch('deletePortfolio', portfolioID)

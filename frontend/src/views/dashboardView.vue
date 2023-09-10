@@ -1,5 +1,8 @@
 <template>
     <div>
+      <div id="up-target">
+
+      </div>
         <div class="search-container">
             <form class="d-flex text-center" role="search">
                 <input class="form-control me-2" type="search" v-model="searchQuery" placeholder="Search" aria-label="Search">
@@ -23,22 +26,6 @@
 
                   
                     <button>
-                        <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
-                            portfolioiImageUrl: portfolio.portfolioiImageUrl,
-                            accountName: portfolio.accountName,
-                            subject: portfolio.subject,
-                            Description: portfolio.Description,
-                            experience:portfolio.experience,
-                            price:portfolio.price,
-                            emailAdd:portfolio.emailAdd,
-                            country: portfolio.country,
-                            city:portfolio.city,
-                            phone:portfolio.phone,
-                            linkedinUrl:portfolio.linkedinUrl,
-                            instaUrl:portfolio.instaUrl,
-                            facebookUrl:portfolio.facebookUrl
-                          }}"
-                      >
                         <div class="col-9">
                             <h4>{{ portfolio.accountName }}</h4>
                             <p><i class="bi bi-phone"></i> {{ portfolio.phone }}</p>
@@ -48,8 +35,30 @@
                         </div>
                         <div class="col-3">
                            <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
-                        </div>
-                    </router-link>
+                        </div>    
+                  
+                      <div class="button_holder">
+                  <div class="col-12">
+                    <router-link :to="{ name: 'single', params: { id: portfolio.portfolioID }, query: {
+                      portfolioiImageUrl: portfolio.portfolioiImageUrl,
+                      accountName: portfolio.accountName,
+                      subject: portfolio.subject,
+                      Description: portfolio.Description,
+                      experience:portfolio.experience,
+                      price:portfolio.price,
+                      emailAdd:portfolio.emailAdd,
+                      country: portfolio.country,
+                      city:portfolio.city,
+                      phone:portfolio.phone,
+                      linkedinUrl:portfolio.linkedinUrl,
+                      instaUrl:portfolio.instaUrl,
+                      facebookUrl:portfolio.facebookUrl
+                    }}"
+                > 
+                    <button class="btn"><i class="bi bi-three-dots-vertical"></i>Details</button>
+                     </router-link>
+                  </div>
+                </div>
                     </button>
               
             </div>
@@ -59,14 +68,18 @@
                 <Spinner/>
             </center>
           </div>
+
+        
     </div>
 </template>
 <script>
 import Spinner from '@/components/spinnerComp.vue';
 
+
 export default {
   components: {
     Spinner
+
   },
   data() {
     return {
@@ -130,6 +143,7 @@ return this.Portfolios.filter((portfolio) => {
 </script>
 
 <style  scoped>
+
 .btn{
     background-color: #D5D5DD;
     color: #12021E;
@@ -137,11 +151,27 @@ return this.Portfolios.filter((portfolio) => {
 .btn:hover{
     background-color: #12021E ;
     color: #D5D5DD;
+    border:1px solid #12021E;
+}
+.btn{
+  margin: 2px;
+  color: #d5d5d5;
+  background-color: #12021E;
 }
 
- .content{
-   margin: 0 5%;
- }
+.btn:hover{
+  animation: tada; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 2s; /* don't forget to set a duration! */
+  color: #12021E;
+  background-color:#d5d5d5;
+}
+.btn i{
+  color: #d5d5d5;
+}
+.btn i:hover{
+  color: #12021E;
+  background-color:#d5d5d5;  
+}
  .search-container{
     width: 90%;
     margin:2% 5%;
@@ -150,7 +180,7 @@ return this.Portfolios.filter((portfolio) => {
     border: 1px solid black;
     font-weight: 700;
     margin: 10px;
-    width:95%;
+    width:400px;
  }
  
  h4{
@@ -184,6 +214,8 @@ return this.Portfolios.filter((portfolio) => {
  .content{
     display: grid;
     grid-template-columns:auto auto;
+    justify-content: center;
+    margin: 0 5%;
  }
 
  /*media query for  < 700*/

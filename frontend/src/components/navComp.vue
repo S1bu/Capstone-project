@@ -32,20 +32,18 @@
                         <li>
                             <router-link to="/dashboard"><i class="bi bi-person-vcard"></i> Dashboard</router-link>
                         </li>
-                        <li>
-                            <router-link to="/portfolio"><i class="bi bi-person-plus-fill"></i> add portfolio</router-link>
-                        </li>
+                       
                         <li>
                             <router-link to="/contact"><i class="bi bi-envelope-at-fill"></i>  Contact</router-link>
                         </li>
                         <li>
-                            <router-link to="/admin"><i class="bi bi-envelope-at-fill"></i>  admin</router-link>
+                            <router-link to="/admin"><i class="bi bi-journal"></i>  admin</router-link>
                         </li>
                         <li>
-                            <router-link to="/register"><i class="bi bi-envelope-at-fill"></i> register</router-link>
+                            <router-link to="/register"><i class="bi bi-box-arrow-in-right"></i> register</router-link>
                         </li>
                         <li>
-                            <router-link to="/login" @click="logOut"><i class="bi bi-envelope-at-fill"></i> logout</router-link>
+                            <router-link to="/login" @click="logOut"><i class="bi bi-box-arrow-left"></i> logout</router-link>
                         </li>
                      </ul>
             
