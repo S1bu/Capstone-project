@@ -24,6 +24,11 @@ const routes = [
     component: () => import( '../views/portfolioView.vue')
   },
   {
+    path: '/Singlepro',
+    name: 'Singlepro',
+    component: () => import( '../views/singleProView.vue')
+  },
+  {
     path: '/dashboard',
     name: 'dashboard',
     component: () => import( '../views/dashboardView.vue'),
