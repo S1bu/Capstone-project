@@ -93,7 +93,7 @@ class Favourites {
     }
    
     //delete portfolio
-    deletePortfolio(req,res){
+    deleteFav(req,res){
         const query =
          `
         DELETE FROM favourites
