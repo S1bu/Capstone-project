@@ -8,7 +8,7 @@ class Favourites {
     // fetch all favourites 
     fetchFavourites (req,res){
             const query =`
-            SELECT  portfolioID,
+            SELECT  favID,
             userID,
             portfolioiImageUrl,
             accountName,
@@ -37,7 +37,7 @@ class Favourites {
     // fetch single Portfolios
     fetchFavourites (req, res){
         const query = `
-        SELECT   portfolioID,
+        SELECT   favID,
             accountName,
              portfolioiImageUrl,
             subject,
@@ -91,29 +91,13 @@ class Favourites {
             });
         });
     }
-    // //update portfolio
-    // updatePortfolio(req, res){
-    //     const data = req.body
-    //     const query =`
-    //     UPDATE favourites
-    //     SET ?
-    //     WHERE portfolioID = ${req.params.id};
-    //     `
-    //     db.query(query,[data],
-    //         (err) => {
-    //             if(err) throw err
-    //             res.json({
-    //                 status: res.statusCode,
-    //                 msg:"favourites  has been updated."
-    //             })
-    //         })
-    // }
+   
     //delete portfolio
     deletePortfolio(req,res){
         const query =
          `
         DELETE FROM favourites
-        WHERE portfolioID = ${req.params.id};
+        WHERE favID = ${req.params.id};
         `
         db.query(query, (err) => {
             if(err) throw err
