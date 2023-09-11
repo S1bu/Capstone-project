@@ -49,7 +49,7 @@ routes.get("/portfolio/:id", (req, res) => {
 });
  
 //register portfolio
-routes.post("/portfolio/register/:id", bodyParser.json(), (req, res) => {
+routes.post("/portfolio/register", bodyParser.json(), (req, res) => {
   portfolio.registerPortfolio(req, res);
 });
 // delete portfolio
@@ -72,7 +72,7 @@ routes.get("/favourite/:id", (req, res) => {
 });
  
 //register favourites
-routes.post("/favourite/register/:id", bodyParser.json(), (req, res) => {
+routes.post("/favourite/register", bodyParser.json(), (req, res) => {
   favourites.registerFavourite(req, res);
 });
 // delete favourites
