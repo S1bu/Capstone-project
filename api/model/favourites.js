@@ -69,7 +69,7 @@ class Favourites {
         });
     }
     //register Portfolio
-    registerPortfolio(req, res) {
+    registerFavourite(req, res) {
         const data = req.body;
         const query = `
         INSERT INTO favourites 
@@ -91,23 +91,23 @@ class Favourites {
             });
         });
     }
-    //update portfolio
-    updatePortfolio(req, res){
-        const data = req.body
-        const query =`
-        UPDATE favourites
-        SET ?
-        WHERE portfolioID = ${req.params.id};
-        `
-        db.query(query,[data],
-            (err) => {
-                if(err) throw err
-                res.json({
-                    status: res.statusCode,
-                    msg:"favourites  has been updated."
-                })
-            })
-    }
+    // //update portfolio
+    // updatePortfolio(req, res){
+    //     const data = req.body
+    //     const query =`
+    //     UPDATE favourites
+    //     SET ?
+    //     WHERE portfolioID = ${req.params.id};
+    //     `
+    //     db.query(query,[data],
+    //         (err) => {
+    //             if(err) throw err
+    //             res.json({
+    //                 status: res.statusCode,
+    //                 msg:"favourites  has been updated."
+    //             })
+    //         })
+    // }
     //delete portfolio
     deletePortfolio(req,res){
         const query =
