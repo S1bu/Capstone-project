@@ -8,6 +8,7 @@ const routes = express.Router();
 //----import all model objects----
 const { users } = require("../model");
 const { portfolio } = require("../model");
+const { favourites } = require("../model");
 //--------------------------------------
 //----------------------------------------------------
 //-----------routing to USERS-----------------------
@@ -59,8 +60,29 @@ routes.delete("/portfolio/:id", (req, res) => {
 routes.patch("/portfolio/:id", bodyParser.json(), (req, res) => {
   portfolio.updatePortfolio(req, res);
 });
+ //---------------------------------------------------
+//-----------FAVOURITES-----------------------
+//get all favourites
+routes.get("/favourites", (req, res) => {
+  favourites.fetchFavourites(req, res);
+});
+// getting one favourites
+routes.get("/favourite/:id", (req, res) => {
+  favourites.fetchFavourite(req, res);
+});
  
-
+//register favourites
+routes.post("/favourite/register/:id", bodyParser.json(), (req, res) => {
+  favourites.registerFavourite(req, res);
+});
+// delete favourites
+routes.delete("/favourite/:id", (req, res) => {
+  favourites.deleteFavourite(req, res);
+});
+// // update portfolio
+// routes.patch("/favourite/:id", bodyParser.json(), (req, res) => {
+//   portfolio.updateFavourite(req, res);
+// });
 module.exports = {
   express,
   routes,
