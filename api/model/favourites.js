@@ -35,7 +35,7 @@ class Favourites {
                 })
     }
     // fetch single Portfolios
-    fetchFavourites (req, res){
+    fetchFavourite (req, res){
         const query = `
         SELECT   favID,
             accountName,
