@@ -15,6 +15,8 @@ export default createStore({
     user: null,
     Portfolios: null,
     portfolio: null,
+    favourites:null,
+    favourite:null,
     spinner: false,
     token: null,
     msg: null
@@ -34,6 +36,12 @@ export default createStore({
     },
     setPortfolio(state, portfolio) {
       state.portfolio = portfolio;
+    },
+    setFavourites(state, favourites) {
+      state.favourites = favourites;
+    },
+    setFavourite(state, favourite) {
+      state.favourite = favourite;
     },
     addPortfolio(state, newPortfolio) {
       state.portfolio.push(newPortfolio);
@@ -63,7 +71,15 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
-
+ // fetching all users
+ async fetchFavourites(context) {
+  try {
+    const { data } = await axios.get(`${intelliCoach}favourites`);
+    context.commit("setFavourites", data.results);
+  } catch (e) {
+    context.commit("setMsg", "An error occurred");
+  }
+},
     // fetching all users
     async fetchUsers(context) {
       try {
@@ -119,6 +135,17 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the portfolio");//error msg
       }
     },
+      //delete portfolio
+      async deleteFav(context, favID) {
+        try {
+          await axios.delete(`${intelliCoach}favourites/${favID}`); //delete request
+          context.commit("deletePortfolio", favID); 
+          context.commit("setMsg", "fav deleted successfully");//success msg
+        } catch (e) {
+          context.commit("setMsg", "An error occurred while deleting the fav");//error msg
+        }
+      },
+
     //register user
     async register(context, payload) {
       try {
@@ -206,7 +233,36 @@ export default createStore({
       } catch (e) {
         context.commit("setMsg", "An error has occured");
       }
-    }
+    },
+      //fav Portfolio
+      async registerFavourite(context, addThem) { 
+        try {
+  
+          const { msg,token, result } = (await axios.post(`${intelliCoach}favourite/register`, addThem)).data;
+          if (result) {
+            cookies.set("human", { msg, token, result });
+            authenticateUser.applyToken(token);
+            sweet({
+              title: "msg",
+              text: `Registered under user ${result?.userID} ` ,
+              icon: "success",
+              timer: 4000,
+            });
+            context.dispatch("fetchFavourites");
+            router.push({ name: "fav" }); //Programmatically navigate to a new URL
+          } else {
+            sweet({
+              title: "Error",
+              text: msg,
+              icon: "error",
+              timer: 4000
+            });
+          }
+        } catch (e) {
+          context.commit("setMsg", "An error has occured");
+        }
+      }
+   
  
   },
   modules: {},

@@ -27,7 +27,7 @@
                   
                     <button>
                         <div class="col-9">
-                            <h4>{{ portfolio.accountName }}</h4>
+                            <h4 >{{ portfolio.accountName }}</h4>
                             <p><i class="bi bi-phone"></i> {{ portfolio.phone }}</p>
                             <p><i class="bi bi-bookshelf"></i> {{ portfolio.subject }}</p>
                             <p><i class="bi bi-globe-europe-africa"></i> {{ portfolio.country }}</p>
@@ -57,6 +57,7 @@
                 > 
                     <button class="btn"><i class="bi bi-three-dots-vertical"></i>Details</button>
                      </router-link>
+                     <button class="btn" @click="Fav(portfolio)"><i class="bi bi-hand-thumbs-up-fill"> favourite</i></button>
                   </div>
                 </div>
                     </button>
@@ -73,6 +74,8 @@
     </div>
 </template>
 <script>
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
 import Spinner from '@/components/spinnerComp.vue';
 
 
@@ -85,12 +88,29 @@ export default {
     return {
       searchQuery: "", //store the search
       sortBy: "", // Store the current sorting option ("name" or "price")
+      addToFav: {
+      portfolioiImageUrl: '',
+      accountName: '',
+      subject: '',
+      Description: '',
+      experience: '',
+      price: '',
+      emailAdd: '',
+      phone: '',
+      country: '',
+      city: '',
+      linkedinUrl: '',
+      instaUrl: '',
+      facebookUrl: ''
+    }
     };
   },
   computed: {
     Portfolios() {
       return this.$store.state.Portfolios;
     },
+
+
     sortedPortfolios() {
       const filteredPortfolios = this.filteredPortfolios;
 
@@ -135,9 +155,34 @@ return this.Portfolios.filter((portfolio) => {
     sortByPrice() {
       this.sortBy = "price";
     },
+    // add to favour
+    Fav(portfolio) {  
+    const cookieValue = cookies.get("human");
+    const { result } = cookieValue;
+    this.addToFav.userID = result.userID;
+    this.addToFav.portfolioiImageUrl = portfolio.portfolioiImageUrl;
+    this.addToFav.accountName = portfolio.accountName;
+    this.addToFav.subject = portfolio.subject;
+    this.addToFav.Description = portfolio.Description;
+    this.addToFav.experience = portfolio.experience;
+    this.addToFav.price = portfolio.price;
+    this.addToFav.emailAdd = portfolio.emailAdd;
+    this.addToFav.phone = portfolio.phone;
+    this.addToFav.country = portfolio.country;
+    this.addToFav.city = portfolio.city;
+    this.addToFav.linkedinUrl = portfolio.linkedinUrl;
+    this.addToFav.instaUrl = portfolio.instaUrl;
+    this.addToFav.facebookUrl = portfolio.facebookUrl;
+
+   
+    this.$store.dispatch('registerFavourite',this.addToFav);
+
+    // console.log(this.addToFav)
+  }
   },
   mounted() {
     this.$store.dispatch('fetchPortfolios');
+   
   }
 };
 </script>
@@ -177,7 +222,6 @@ return this.Portfolios.filter((portfolio) => {
     margin:2% 5%;
  }
  .row{
-    border: 1px solid black;
     font-weight: 700;
     margin: 10px;
     width:400px;
