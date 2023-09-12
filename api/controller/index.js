@@ -77,7 +77,7 @@ routes.post("/favourite/register", bodyParser.json(), (req, res) => {
 });
 // delete favourites
 routes.delete("/favourite/:id", (req, res) => {
-  favourites.deleteFavourite(req, res);
+  favourites.deleteFav(req, res);
 });
 // // update portfolio
 // routes.patch("/favourite/:id", bodyParser.json(), (req, res) => {
