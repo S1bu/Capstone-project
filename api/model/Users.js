@@ -35,7 +35,7 @@ class Users{
         age,
         userRole,
         uPassword
-        FROM users;
+        FROM users
         WHERE userID = ?;
         `;
     
