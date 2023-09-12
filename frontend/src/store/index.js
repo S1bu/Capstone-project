@@ -46,6 +46,16 @@ export default createStore({
     addPortfolio(state, newPortfolio) {
       state.portfolio.push(newPortfolio);
     },
+    deleteFav(state, favID) {
+      state.favourites = state.favourites.filter(fav => fav.favID !== favID);
+    },
+    deleteUser(state, userID) {
+      state.users = state.users.filter(users => users.userID !== userID);
+    },
+    deletePortfolio(state, portfolioID) {
+      state.Portfolios = state.Portfolios.filter(users => users.portfolioID !== portfolioID);
+    },
+
     setSpinner(state, value) {
       state.spinner = value;
     },
@@ -62,7 +72,10 @@ export default createStore({
 
   },
   actions: {
-    //fetching all
+   //---------------------------------------------------------------------------------------------------------------
+  //----Fetch all----------
+   //---------------------------------------------------------------------------------------------------------------
+    //fetching all portfolios
     async fetchPortfolios(context) {
       try {
         const { data } = await axios.get(`${intelliCoach}portfolios`);
@@ -71,7 +84,7 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
- // fetching all users
+ // fetching all favourites
  async fetchFavourites(context) {
   try {
     const { data } = await axios.get(`${intelliCoach}favourites`);
@@ -89,6 +102,9 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
+  //---------------------------------------------------------------------------------------------------------------
+  //----Fetch one-------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------------------
     //fetching one user
     async fetchUser(context) {
       try {
@@ -103,6 +119,9 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
+    //---------------------------------------------------------------------------------------------------------------
+  //----delete ----------
+    //---------------------------------------------------------------------------------------------------------------   
     //delete user
     async deleteUser(context, userID) {
       try {
@@ -114,6 +133,29 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the user");//error handling
       }
     },
+      //delete portfolio
+      async deletePortfolio(context, portfolioID) {
+        try {
+          await axios.delete(`${intelliCoach}portfolio/${portfolioID}`); //delete request
+          context.commit("deletePortfolio", portfolioID); 
+          context.commit("setMsg", "Portfolio deleted successfully");//success msg
+        } catch (e) {
+          context.commit("setMsg", "An error occurred while deleting the portfolio");//error msg
+        }
+      },
+     //delete fav
+     async deleteFav(context, favID) {
+      try {
+        await axios.delete(`${intelliCoach}favourite/${favID}`); //delete request
+        context.commit("deleteFav", favID); 
+        context.commit("setMsg", "fav deleted successfully");//success msg
+      } catch (e) {
+        context.commit("setMsg", "An error occurred while deleting the fav");//error msg
+      }
+    },
+  //---------------------------------------------------------------------------------------------------------------
+  //----update ----------
+  //---------------------------------------------------------------------------------------------------------------
      //update user
      async updateUser(context, userID) {
       try {
@@ -125,27 +167,24 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the user");//error handling
       }
     },
-    //delete portfolio
-    async deletePortfolio(context, portfolioID) {
-      try {
-        await axios.delete(`${intelliCoach}portfolio/${portfolioID}`); //delete request
-        context.commit("deletePortfolio", portfolioID); 
-        context.commit("setMsg", "Portfolio deleted successfully");//success msg
-      } catch (e) {
-        context.commit("setMsg", "An error occurred while deleting the portfolio");//error msg
-      }
-    },
-      //delete portfolio
-      async deleteFav(context, favID) {
-        try {
-          await axios.delete(`${intelliCoach}favourites/${favID}`); //delete request
-          context.commit("deletePortfolio", favID); 
-          context.commit("setMsg", "fav deleted successfully");//success msg
-        } catch (e) {
-          context.commit("setMsg", "An error occurred while deleting the fav");//error msg
-        }
-      },
-
+    // async updatePortfolios(context, payload) {
+    //   try {
+    //     const res = await axios.put(`${intelliCoach}portfolio/${payload.ID}`, payload);
+    //     const { result, err, msg } = await res.data;
+    //     if (result) {
+    //       context.commit('updateUser', result);
+    //       context.commit('setMessage', msg)
+    //     } else {
+    //       context.commit('setMessage', err)
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //     context.commit('setMessage', 'Error updating user');
+    //   }
+    // },
+    //---------------------------------------------------------------------------------------------------------------
+  //----register ----------
+   //--------------------------------------------------------------------------------------------------------------- 
     //register user
     async register(context, payload) {
       try {
@@ -171,6 +210,65 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
+ //create Portfolio
+ async registerPortfolio(context, newPortfolio) {
+  try {
+    
+    const { msg,token, result } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
+    if (result) {
+      cookies.set("human", { msg, token, result });
+      authenticateUser.applyToken(token);
+      sweet({
+        title: "msg",
+        text: `Registered under user ${result?.userID} ` ,
+        icon: "success",
+        timer: 4000,
+      });
+      context.dispatch("fetchPortfolios");
+      router.push({ name: "dashboard" }); //Programmatically navigate to a new URL
+    } else {
+      sweet({
+        title: "Error",
+        text: msg,
+        icon: "error",
+        timer: 4000
+      });
+    }
+  } catch (e) {
+    context.commit("setMsg", "An error has occured");
+  }
+},
+  //fav Portfolio
+  async registerFavourite(context, addThem) { 
+    try {
+
+      const { msg,token, result } = (await axios.post(`${intelliCoach}favourite/register`, addThem)).data;
+      if (result) {
+        cookies.set("human", { msg, token, result });
+        authenticateUser.applyToken(token);
+        sweet({
+          title: "msg",
+          text: `Registered under user ${result?.userID} ` ,
+          icon: "success",
+          timer: 4000,
+        });
+        context.dispatch("fetchFavourites");
+        router.push({ name: "fav" }); //Programmatically navigate to a new URL
+      } else {
+        sweet({
+          title: "Error",
+          text: msg,
+          icon: "error",
+          timer: 4000
+        });
+      }
+    } catch (e) {
+      context.commit("setMsg", "An error has occured");
+    }
+  },
+   //---------------------------------------------------------------------------------------------------------------
+  //----login ----------
+  //---------------------------------------------------------------------------------------------------------------
     //login user
     async login(context, payload) {
       try {
@@ -201,69 +299,14 @@ export default createStore({
         context.commit("setMsg", "An error has occured");
       }
     },
-    //login user
-    async logOut(context) {
-        context.commit("setUser")
-        cookies.remove("human")
-    },
-    //create Portfolio
-    async registerPortfolio(context, newPortfolio) {
-      try {
-        
-        const { msg,token, result } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
-        if (result) {
-          cookies.set("human", { msg, token, result });
-          authenticateUser.applyToken(token);
-          sweet({
-            title: "msg",
-            text: `Registered under user ${result?.userID} ` ,
-            icon: "success",
-            timer: 4000,
-          });
-          context.dispatch("fetchPortfolios");
-          router.push({ name: "dashboard" }); //Programmatically navigate to a new URL
-        } else {
-          sweet({
-            title: "Error",
-            text: msg,
-            icon: "error",
-            timer: 4000
-          });
-        }
-      } catch (e) {
-        context.commit("setMsg", "An error has occured");
-      }
-    },
-      //fav Portfolio
-      async registerFavourite(context, addThem) { 
-        try {
-  
-          const { msg,token, result } = (await axios.post(`${intelliCoach}favourite/register`, addThem)).data;
-          if (result) {
-            cookies.set("human", { msg, token, result });
-            authenticateUser.applyToken(token);
-            sweet({
-              title: "msg",
-              text: `Registered under user ${result?.userID} ` ,
-              icon: "success",
-              timer: 4000,
-            });
-            context.dispatch("fetchFavourites");
-            router.push({ name: "fav" }); //Programmatically navigate to a new URL
-          } else {
-            sweet({
-              title: "Error",
-              text: msg,
-              icon: "error",
-              timer: 4000
-            });
-          }
-        } catch (e) {
-          context.commit("setMsg", "An error has occured");
-        }
-      }
-   
- 
+     //---------------------------------------------------------------------------------------------------------------
+  //----logout ----------
+  //---------------------------------------------------------------------------------------------------------------
+  //logout user
+  async logOut(context) {
+    context.commit("setUser")
+    cookies.remove("human")
+},
   },
   modules: {},
 });

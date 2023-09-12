@@ -162,12 +162,12 @@
       deleteUser(userId) {
   // Dispatch an action to delete the user by userId
   this.$store.dispatch('deleteUser', userId)
-    .then(() => {
-      window.location.reload();
-    })
-    .catch(error => {
-      console.error("Error deleting user:", error);
-    });
+    // .then(() => {
+    //   window.location.reload();
+    // })
+    // .catch(error => {
+    //   console.error("Error deleting user:", error);
+    // });
 },
 updateUser(userID){
   this.$store.dispatch('updateUser', userID)
@@ -175,12 +175,6 @@ updateUser(userID){
 deletePortfolio(portfolioID) {
   // Dispatch an action to delete the user by userId
   this.$store.dispatch('deletePortfolio', portfolioID)
-    .then(() => {
-      window.location.reload();
-    })
-    .catch(error => {
-      console.error("Error deleting portfolio:", error);
-    });
 },
  
     },
