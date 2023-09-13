@@ -66,8 +66,11 @@ export default createStore({
       // Implement logic to remove the user from the state
       state.users = state.users.filter(user => user.id !== userId);
     },
-    updatePortfolios(state, portfolio){
-      state.Portfolios = state.Portfolios.map(u => u.id === portfolio.id ? portfolio : u)
+    updatePortfolio(state, {portfolioID, updatedPortfolio}){
+      const index = state.portfolios.findIndex((portfolio)=>portfolio.id===portfolioID)
+        if (index!==-1){
+          state.portfolios[index]=updatedPortfolio
+        }
     },
 
   },
@@ -109,12 +112,9 @@ export default createStore({
     async fetchUser(context) {
       try {
         const cookieValue = cookies.get("human");
-        const { token, result } = cookieValue;
+        const { result } = cookieValue;
         context.commit("setUser", { result });
-        await axios.get(`${intelliCoach}user/${result.userID}`).then(response => {
-          context.commit("setUser", response.data.results);
-          cookies.set("human", { token, result });
-        });
+        await axios.get(`${intelliCoach}user/${result.userID}`)
       } catch (e) {
         context.commit("setMsg", "An error occurred");
       }
@@ -167,21 +167,21 @@ export default createStore({
         context.commit("setMsg", "An error occurred while deleting the user");//error handling
       }
     },
-    // async updatePortfolios(context, payload) {
-    //   try {
-    //     const res = await axios.put(`${intelliCoach}portfolio/${payload.ID}`, payload);
-    //     const { result, err, msg } = await res.data;
-    //     if (result) {
-    //       context.commit('updateUser', result);
-    //       context.commit('setMessage', msg)
-    //     } else {
-    //       context.commit('setMessage', err)
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //     context.commit('setMessage', 'Error updating user');
-    //   }
-    // },
+    async updatePortfolios(context, payload) {
+      try {
+        const res = await axios.put(`${intelliCoach}user/${payload.ID}`, payload);
+        const { result, err, msg } = await res.data;
+        if (result) {
+          context.commit('updateUser', result);
+          context.commit('setMessage', msg)
+        } else {
+          context.commit('setMessage', err)
+        }
+      } catch (error) {
+        console.error(error);
+        context.commit('setMessage', 'Error updating user');
+      }
+    },
     //---------------------------------------------------------------------------------------------------------------
   //----register ----------
    //--------------------------------------------------------------------------------------------------------------- 
@@ -216,6 +216,7 @@ export default createStore({
     
     const { msg,token, result } = (await axios.post(`${intelliCoach}portfolio/register`, newPortfolio)).data;
     if (result) {
+      context.commit("setPortfolios", { result, msg });
       cookies.set("human", { msg, token, result });
       authenticateUser.applyToken(token);
       sweet({
@@ -244,6 +245,7 @@ export default createStore({
 
       const { msg,token, result } = (await axios.post(`${intelliCoach}favourite/register`, addThem)).data;
       if (result) {
+        context.commit("setFavourites", { result, msg });
         cookies.set("human", { msg, token, result });
         authenticateUser.applyToken(token);
         sweet({

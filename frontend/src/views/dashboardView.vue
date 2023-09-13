@@ -139,7 +139,7 @@ return this.Portfolios.filter((portfolio) => {
   const price = portfolio.price.toString().toLowerCase(); //filter on price
 
   return (
-    accountName.includes(searchQuery) || 
+    accountName.includes(searchQuery) ||  
     subject.includes(searchQuery) ||
     country.includes(searchQuery) ||
     city.includes(searchQuery) ||
@@ -176,8 +176,6 @@ return this.Portfolios.filter((portfolio) => {
 
    
     this.$store.dispatch('registerFavourite',this.addToFav);
-
-    // console.log(this.addToFav)
   }
   },
   mounted() {

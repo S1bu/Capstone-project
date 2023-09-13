@@ -22,6 +22,15 @@
               <input type="text" class="form-control" id="Surname" v-model="payload.LastName" name="Surname" required>
             </div>
           </div>
+          <div class="mb-3 row">      
+            <label for="role" class="col-sm-2 col-form-label">role</label>
+            <div class="col-sm-9">
+              <select name="role" id="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </div>
           <div class="mb-3 row">
             <label for="email" class="col-sm-2 col-form-label">e-mail</label>
             <div class="col-sm-9">
@@ -55,6 +64,7 @@
     FirstName:"",
     LastName:"",
     emailAdd :"",
+    userRole:"",
     age:"",
     uPassword:""
           }

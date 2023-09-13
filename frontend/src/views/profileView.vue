@@ -11,17 +11,18 @@
             <p>{{ user.userID }}</p>
             <p>Name: {{ user.FirstName }}</p>
             <p>Surname:{{ user.LastName }}</p>
-            <p>Age :</p>
-            <p>Gender:</p> 
+            <p>Age :{{ user.age }}</p>
+            <p>Gender:{{ user.gender }}</p>
+            <p>Description:{{ user.Description }}</p> 
           </div>
           <div class="col">
             <p>Country:</p>
             <p>City:</p>
             <p>Email:{{ user.emailAdd }}</p> 
             <p>Phone: {{ user.phone}} </p>
-            <p>Linkedin</p>
-            <p>instaUrl</p>
-            <p>facebookUrl</p>
+            <p>Linkedin:{{ user.linkedinUrl }}</p>
+            <p>instaUrl:{{ user.instaUrl }}</p>
+            <p>facebookUrl:{{ user.facebookUrl }}</p>
             <h3></h3>
           </div>
          
@@ -36,7 +37,8 @@
   <div class="heading">
     <h1>My portfolios</h1>
   </div>
-  <div class="content" v-if="Portfolios">         
+  <div class="content" v-if="Portfolios">
+         
     <div class="row" v-for="portfolio in  matchuserID" :key="portfolio.portfolioID">         
             <button class="thebtn">             
                 <div class="col-9">
