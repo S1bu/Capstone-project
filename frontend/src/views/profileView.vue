@@ -11,17 +11,18 @@
             <p>{{ user.userID }}</p>
             <p>Name: {{ user.FirstName }}</p>
             <p>Surname:{{ user.LastName }}</p>
-            <p>Age :</p>
-            <p>Gender:</p> 
+            <p>Age :{{ user.age }}</p>
+            <p>Gender:{{ user.gender }}</p>
+            <p>Description:{{ user.Description }}</p> 
           </div>
           <div class="col">
             <p>Country:</p>
             <p>City:</p>
             <p>Email:{{ user.emailAdd }}</p> 
             <p>Phone: {{ user.phone}} </p>
-            <p>Linkedin</p>
-            <p>instaUrl</p>
-            <p>facebookUrl</p>
+            <p>Linkedin:{{ user.linkedinUrl }}</p>
+            <p>instaUrl:{{ user.instaUrl }}</p>
+            <p>facebookUrl:{{ user.facebookUrl }}</p>
             <h3></h3>
           </div>
          
@@ -37,31 +38,22 @@
     <h1>My portfolios</h1>
   </div>
   <div class="content" v-if="Portfolios">
-   
-   
-            
-    <div class="row" v-for="portfolio in  matchuserID" :key="portfolio.portfolioID">
-
-          
-            <button class="thebtn">
-                
+         
+    <div class="row" v-for="portfolio in  matchuserID" :key="portfolio.portfolioID">         
+            <button class="thebtn">             
                 <div class="col-9">
                     <h4>{{ portfolio.accountName }}</h4>
                     <p><i class="bi bi-phone"></i> {{ portfolio.phone }}</p>
                     <p><i class="bi bi-bookshelf"></i> {{ portfolio.subject }}</p>
                     <p><i class="bi bi-globe-europe-africa"></i> {{ portfolio.country }}</p>
-                    <p><i style="color:green" class="bi bi-cash-coin"></i> R {{ portfolio.price }}</p>
-                 
+                    <p><i style="color:green" class="bi bi-cash-coin"></i> R {{ portfolio.price }}</p>                
                 </div>
-                <div class="col-3">
-                   
+                <div class="col-3">               
                    <img :src="portfolio.portfolioiImageUrl" :alt="portfolio.portfolioiImageUrl">
-
                 </div>
                 <div class="button_holder">
                   <div class="col-12">
                     <button class="btn" @click="deletePortfolio(portfolio.portfolioID)"><i class="bi bi-trash3-fill"></i>Delete</button> 
-
                     <router-link :to="{ name: 'Singlepro', params: { id: portfolio.portfolioID }, query: {
                       portfolioiImageUrl: portfolio.portfolioiImageUrl,
                       accountName: portfolio.accountName,
@@ -108,9 +100,11 @@ const { cookies } = useCookies();
             User() {
       return this.$store.state.user;
     },
+    //calling portfolio info
     Portfolios() {
         return this.$store.state.Portfolios;
       },
+      //calling info that matches the users cookie id
       matchuserID() { 
       const cookieValue = cookies.get("human"); //getting values values from cookie named human
       const { result } = cookieValue; 
@@ -121,14 +115,8 @@ const { cookies } = useCookies();
         },
         methods:{
           deletePortfolio(portfolioID) {
-  // Dispatch an action to delete the user by userId
+//delete the user by userId
   this.$store.dispatch('deletePortfolio', portfolioID)
-    .then(() => {
-      window.location.reload();
-    })
-    .catch(error => {
-      console.error("Error deleting portfolio:", error);
-    });
 },
         },
         mounted() {

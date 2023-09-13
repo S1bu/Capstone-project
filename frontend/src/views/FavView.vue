@@ -46,7 +46,7 @@
             > 
                 <button class="btn"><i class="bi bi-three-dots-vertical">Details</i></button>
                  </router-link>
-                 <button class="btn" @click="deleteFav(favID)"><i class="bi bi-hand-thumbs-down-fill">remove</i></button>
+                 <button class="btn" @click="deleteFav(favourite.favID)"><i class="bi bi-hand-thumbs-down-fill">remove</i></button>
               </div>
             </div>
                 </button>
@@ -87,13 +87,8 @@ export default {
   methods:{
     deleteFav(favID) {
   // Dispatch an action to delete the user by userId
-  this.$store.dispatch('deleteUser', favID)
-    .then(() => {
-      window.location.reload();
-    })
-    .catch(error => {
-      console.error("Error deleting fav:", error);
-    });
+  console.log(`I was clicked`)
+  this.$store.dispatch('deleteFav', favID)
 },
   },
   mounted() {

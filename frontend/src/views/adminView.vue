@@ -105,13 +105,20 @@
         sortBy: "", // Store the current sorting option ("name" or "price")
         editPortfolioData: {
         // Initialize this object to store the data for editing
-        userID: '',
-        portfolioID: '',
         accountName: '',
-        emailAdd: '',
-        // Add other fields as needed
-      },
-      isEditing: false, // A flag to track if the edit mode is active
+        portfolioiImageUrl:'',
+        subject: '',
+        Description:'',
+        experience:'',
+        price:'',
+        emailAdd:'',
+        country:'',
+        city:'',
+        phone:'',
+        linkedinUrl:'',
+        instaUrl:'',
+        facebookUrl:''
+      }
       };
     },
     computed: {
@@ -162,25 +169,50 @@
       deleteUser(userId) {
   // Dispatch an action to delete the user by userId
   this.$store.dispatch('deleteUser', userId)
-    .then(() => {
-      window.location.reload();
-    })
-    .catch(error => {
-      console.error("Error deleting user:", error);
-    });
 },
 updateUser(userID){
   this.$store.dispatch('updateUser', userID)
 },
+updatePortfolio(portfolioID){
+    const portfolioUpdate = this.Portfolios.find((portfolio)=>portfolio.portfolioID===portfolioID)
+
+    if (portfolioUpdate){
+      const updatedportfolioData = {
+        accountName: this.editPortfolioData.accountName,
+        portfolioiImageUrl:this.editPortfolioData.portfolioiImageUrl,
+        subject: this.editPortfolioData.subject,
+        Description:this.editPortfolioData.Description,
+        experience:this.editPortfolioData.experience,
+        price:this.editPortfolioData.price,
+        emailAdd:this.editPortfolioData.emailAdd,
+        country:this.editPortfolioData.country,
+        city:this.editPortfolioData.city,
+        phone:this.editPortfolioData.phone,
+        linkedinUrl:this.editPortfolioData.linkedinUrl,
+        instaUrl:this.editPortfolioData.instaUrl,
+        facebookUrl:this.editPortfolioData.facebookUrl
+      }
+      this.$store.dispatch('updatePotfolio',{portfolioID,editPortfolioData:updatedportfolioData})
+          this.editPortfolioData ={
+        accountName: '',
+        portfolioiImageUrl:'',
+        subject: '',
+        Description:'',
+        experience:'',
+        price:'',
+        emailAdd:'',
+        country:'',
+        city:'',
+        phone:'',
+        linkedinUrl:'',
+        instaUrl:'',
+        facebookUrl:''
+          }
+    }
+},
 deletePortfolio(portfolioID) {
   // Dispatch an action to delete the user by userId
   this.$store.dispatch('deletePortfolio', portfolioID)
-    .then(() => {
-      window.location.reload();
-    })
-    .catch(error => {
-      console.error("Error deleting portfolio:", error);
-    });
 },
  
     },
