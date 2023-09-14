@@ -57,7 +57,7 @@ routes.delete("/portfolio/:id", (req, res) => {
   portfolio.deletePortfolio(req, res);
 });
 // update portfolio
-routes.patch("/portfolio/:id", bodyParser.json(), (req, res) => {
+routes.put("/portfolio/:id", bodyParser.json(), (req, res) => {
   portfolio.updatePortfolio(req, res);
 });
  //---------------------------------------------------
