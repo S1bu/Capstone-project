@@ -6,19 +6,25 @@ const db = require ("../config")
 //-----------------------------------------------
 class Favourites {
    //fetch total
-    fetchtotalFav (req,res){
+     fetchtotalFav (req,res){
         const query =`
-        SELECT COUNT(*) 
-        FROM favourites;
+        SELECT COUNT(*)
+        FROM favourites
+        WHERE userID = ?;
         `
-        db.query(query,
-            (err,results) => {
-                if(err) throw err
-                res.json({ 
-                    status:res.statusCode,
-                    results
-                })
-            })
+        db.query(query, [req.params.id], (err, result) => {
+            if (err) { 
+                console.error(err);
+                res.status(500).json({
+                    error: "An error occurred while fetching the total.",
+                });
+            } else {
+                res.status(200).json({
+                    status: res.statusCode,
+                    result,
+                });
+            }
+        });
 }
     // fetch all favourites 
     fetchFavourites (req,res){
