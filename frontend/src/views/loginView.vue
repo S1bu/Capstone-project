@@ -6,15 +6,15 @@
 <center>
     <form @submit.prevent="login">
         <div class="mb-3 row">
-         <label for="linkedin" class="col-sm-2 col-form-label">email</label>
+         <label for="email" class="col-sm-2 col-form-label">email</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="linkedin" v-model="payload.emailAdd" name="linkedin" required>
+            <input type="text" class="form-control" id="email" v-model="payload.emailAdd" name="email" required  oninvalid="this.setCustomValidity('Please enter your email')" oninput="this.setCustomValidity('')">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="password" class="col-sm-2 col-form-label">password</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="password" v-model="payload.uPassword" name="password" required>
+            <input type="text" class="form-control" id="password" v-model="payload.uPassword" name="password"  required oninvalid="this.setCustomValidity('Please enter your password')" oninput="this.setCustomValidity('')">
           </div>
         </div>
                 <button type="submit" class="btn"><i class="bi bi-check"></i></button>
