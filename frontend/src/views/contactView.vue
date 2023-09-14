@@ -8,25 +8,27 @@
              <div class="mb-3 row">
                  <label for="name" class="col-sm-2 col-form-label">Name</label>
                  <div class="col-sm-9">
-                   <input type="text" class="form-control" id="name" name="name" required>
+                   <input type="text" class="form-control" id="name" name="name" required    oninvalid="this.setCustomValidity('Please enter your name')" oninput="this.setCustomValidity('')">
                  </div>
                </div>
                <div class="mb-3 row">
                  <label for="surname" class="col-sm-2 col-form-label">Surname</label>
                  <div class="col-sm-9">
-                   <input type="text" class="form-control" id="surname" name="surname" required>
+                   <input type="text" class="form-control" id="surname" name="surname" required oninvalid="this.setCustomValidity('Please enter your Surname')" oninput="this.setCustomValidity('')">
                  </div>
                </div>
                <div class="mb-3 row">
                  <label for="email" class="col-sm-2 col-form-label">e-mail</label>
                  <div class="col-sm-9">
-                   <input type="text" class="form-control" id="email" name="email" required>
+                   <input type="email" class="form-control" id="email" name="email" required oninvalid="this.setCustomValidity('Please enter your email')" oninput="this.setCustomValidity('')">
                  </div>
                </div>
                <div class="mb-3 row">
                  <label for="message" class="col-sm-2 col-form-label">Message</label>
                  <div class="col-sm-9">
-                   <textarea type="text" class="form-control" id="message" name="message" required></textarea>
+                   <textarea type="text" class="form-control" id="message" name="message" required oninvalid="this.setCustomValidity('Please enter your message')" oninput="this.setCustomValidity('')">
+
+                   </textarea>
                  </div>
                </div>
                <center>
