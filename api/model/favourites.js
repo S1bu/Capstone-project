@@ -5,6 +5,21 @@ const db = require ("../config")
  
 //-----------------------------------------------
 class Favourites {
+   //fetch total
+    fetchtotalFav (req,res){
+        const query =`
+        SELECT COUNT(*) 
+        FROM favourites;
+        `
+        db.query(query,
+            (err,results) => {
+                if(err) throw err
+                res.json({ 
+                    status:res.statusCode,
+                    results
+                })
+            })
+}
     // fetch all favourites 
     fetchFavourites (req,res){
             const query =`
