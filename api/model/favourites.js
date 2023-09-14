@@ -58,7 +58,9 @@ class Favourites {
     // fetch single Portfolios
     fetchFavourite (req, res){
         const query = `
-        SELECT   favID,
+        SELECT  
+        COUNT(*) as total,
+        favID,
             accountName,
              portfolioiImageUrl,
             subject,
@@ -73,7 +75,7 @@ class Favourites {
             instaUrl,
             facebookUrl
             FROM favourites 
-        WHERE portfolioID  = ?;
+        WHERE userID  = ?;
         `
         db.query(query, [req.params.id], (err, result) => {
             if (err) { 
