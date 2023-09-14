@@ -8,7 +8,7 @@ class Favourites {
    //fetch total
      fetchtotalFav (req,res){
         const query =`
-        SELECT COUNT(*)
+        SELECT COUNT(*) AS favtotal
         FROM favourites
         WHERE userID = ?;
         `
