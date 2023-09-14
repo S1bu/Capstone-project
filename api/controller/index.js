@@ -63,7 +63,7 @@ routes.patch("/portfolio/:id", bodyParser.json(), (req, res) => {
  //---------------------------------------------------
 //-----------FAVOURITES-----------------------
 // get total
-routes.get("/favtotal", (req, res) => {
+routes.get("/favtotal/:id", (req, res) => {
   favourites.fetchtotalFav(req, res);
 });
 //get all favourites
