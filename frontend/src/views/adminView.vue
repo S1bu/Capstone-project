@@ -3,6 +3,10 @@
   <NavBar/>
     <div class="text-align-center">
         <br>
+        <center>
+          <router-link to="/portfolio"><button class="thebtn"><i class="bi bi-person-plus-fill"></i>Create portfolio</button></router-link>
+        </center>
+       <br>
        <br>
        <div class="search-holder">
         <form class="d-flex text-center" role="search">
@@ -465,6 +469,14 @@ deletePortfolio(portfolioID) {
   </script>
   
   <style scoped>
+  .thebtn{
+    margin: 2px;
+    color: #12021E;
+    background-color: #d5d5d5;
+    border: 1px solid #12021E;
+    border-radius: 10px;
+  }
+  
   .submit-form{
     width:40%; 
     padding:10px; 
