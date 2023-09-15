@@ -7,20 +7,23 @@
     <div class="container">
         <div class="row" v-for="user in User" :key="user.userID">
           <div class="col ">
-            <!-- <p>{{ user.userID }}</p> -->
+           <h4>Your details:</h4>
             <p>Name: {{ user.FirstName }}</p>
             <p>Surname:{{ user.LastName }}</p>
             <p>Email:{{ user.emailAdd }}</p> 
           </div>
-          <div class="col">
-            <img :src="user.userPic" :alt="user.FirstName">
+          <div class="col text-center">
+            <h3>Welcome back  <span class="highlight">{{ user.FirstName }}</span></h3>
+            <img src="https://i.postimg.cc/htGxvCHh/hand-drawn-flat-design-people-waving-illustration-23-2149218831.jpg" width="300px" style="border:1px solid #d5d5d5d;border-radius:10px;padding:5px" :alt="user.FirstName">
           </div>
          
-        </div>
+      
         <div class="col-12 text-center">
           <button class="btn" data-bs-toggle="modal" data-bs-target="#editUser"><i class="bi bi-pen-fill"></i>edit details</button>
           <router-link to="/portfolio"><button class="btn"><i class="bi bi-person-plus-fill"></i>Create portfolio</button></router-link>
+          <button class="btn"   @click="deleteUser(user.userID)"><i class="bi bi-trash3"></i>Delete Profile</button>
         </div>
+      </div>
     </div>
   </div>
               <!-- Modal for updateuser -->
@@ -186,6 +189,10 @@ return {
     }
         },
         methods:{
+          deleteUser(userId) {
+  // Dispatch an action to delete the user by userId
+  this.$store.dispatch('deleteUser', userId)
+},
           // update user info
           updateUser(user) {
       const userID = user.userID; // Added this line to get the portfolio ID
@@ -258,12 +265,17 @@ return {
         },
         mounted() {
     this.$store.dispatch('fetchUser');
+    // this.$store.dispatch('fetchUsers');
     this.$store.dispatch('fetchPortfolios');
   }
     }
 </script>
 
 <style  scoped>
+.highlight{
+font-weight: 900;
+
+}
 .container-fluid{
 background-color: #d5d5d5;
 border: 1px solid #d5d5d5;

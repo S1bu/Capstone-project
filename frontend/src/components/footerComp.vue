@@ -1,33 +1,7 @@
 <template>
-    <div>
-        <div class="container text-center">
+
+        <div class="container w-100">
             <div class="row align-items-start">
-             
-                <div class="col">
-                    <ul>
-                        <li>
-                            <router-link to="/contact">
-                                <i class="bi bi-envelope-at-fill"></i> contact
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/dashboard">
-                                <i class="bi bi-person-vcard"></i>  dashboard
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/fav">
-                                <i class="bi bi-heart-fill"></i>  favourtites
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/portfolio">
-                                <i class="bi bi-person-plus-fill"></i>  add portfolio
-                            </router-link>
-                        </li>
-                    </ul>
-                
-              </div>
               <div class="col">
                 <ul>
                     <li>
@@ -78,18 +52,8 @@
               </div>
             </div>
           </div>
-    </div>
 
-    <!-- <router-link to="/fav"><i class="bi bi-heart-fill"></i>  Favourites</router-link>
-</li>
-<li>
-    <router-link to="/dashboard"><i class="bi bi-person-vcard"></i> Dashboard</router-link>
-</li>
-<li>
-    <router-link to="/portfolio"><i class="bi bi-person-plus-fill"></i> add portfolio</router-link>
-</li>
-<li>
-    <router-link to="/contact"><i class="bi bi-telephone-fill"></i>  Contact</router-link> -->
+ 
 </template>
 
 <script>
@@ -129,6 +93,7 @@ color: #d5d5dd;
 font-weight: 700;
 }
 .container{
+    width: 100%;
     margin-top: 200px;
     background-color:#030212;
     padding: 10px;

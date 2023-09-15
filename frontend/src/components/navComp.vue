@@ -18,8 +18,16 @@
               </button>
             </div>
             <div class="offcanvas-body">
+        
+           
+    
              
                     <ul>
+                        <li>
+                            <button class="btn" type="button">
+                                <img src="https://i.postimg.cc/LXcsPVqh/logo-200x200-1.png" alt="logo" >
+                              </button>
+                        </li>
                         <li>
                             <router-link to="/profile"><i class="bi bi-person-circle"></i> Profile</router-link>
                         </li>

@@ -94,8 +94,6 @@ export default {
   },
   methods:{
     deleteFav(favID) {
-  // Dispatch an action to delete the user by userId
-  console.log(`I was clicked`)
   this.$store.dispatch('deleteFav', favID)
 },
   },
@@ -114,23 +112,19 @@ export default {
     width: 90%;
     }
     .col{
-    
         width: auto;
     }
     .col img{
         width: 200px;
     }
-    
-    
       .search-container{
          width: 90%;
          margin:2% 5%;
       }
       .row{
-       
          font-weight: 700;
          margin: 10px;
-         width:95%;
+         width:100%;
       }
       
       h4{
@@ -200,12 +194,16 @@ export default {
       @media (width < 700px) {
          .content{
          grid-template-columns:auto;
+         width: 100%;
       }
       .thebtn{
         width: 90%;
      }
      .row{
       width:100%;
+     }
+     .thebtn{
+      width: 100%;
      }
       }
 </style>

@@ -300,14 +300,19 @@ return this.Portfolios.filter((portfolio) => {
     display: grid;
     grid-template-columns:auto auto;
     justify-content: center;
-    margin: 0 5%;
+   
  }
 
  /*media query for  < 700*/
  @media (width < 700px) {
         .content{ 
         grid-template-columns:auto;
+        justify-content:center;
+        margin: 8px;
      }
+     .row{
+     width: 99%;
+   }
   }
    /*media query for  < 300*/
    @media (width < 300px) {
@@ -328,9 +333,6 @@ return this.Portfolios.filter((portfolio) => {
     width:30px
    }
 
-   .content{
-    justify-content:start;
-   }
- 
+   
   }
 </style>
