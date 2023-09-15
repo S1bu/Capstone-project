@@ -7,7 +7,187 @@
     <link rel="stylesheet" href="../style/style.css">
     <title>Connection confirmed</title>
 </head>
+<body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- style sheet -->
+    <!-- <link rel="stylesheet" href="../style/style.css"> -->
+    <style>
+        *,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    text-align: center;
+}
+/* @ media queries */
+/* @media(width < 700px){
+   
+} */
+ table{
+    width: 90%;
+    border-collapse: collapse;
+ }
+
+ td,th{
+    padding: 10px;
+    text-align: center;
+ }
+ 
+ th{
+    background-color: midnightblue;
+    color: white;
+    font-weight: 700;
+ }
+    </style>
+    <title>Connection confirmed</title>
+</head>
 <body>
+   
+<h1>Users</h1>
+<center>
+    <table border="1">
+        <tr>
+    <th>Request</th>
+    <th>Route</th>
+    <th>Description</th>
+        </tr>
+    <tbody>
+        <!-- fetch all users -->
+        <tr>
+            <td>get</td>
+            <td>/users</td>
+            <td>fetch all users</td>
+        </tr>
+          <!-- fetch single user -->
+          <tr>
+            <td>get</td>
+            <td>/user</td>
+            <td>fetch single user</td>
+        </tr>
+       <!-- create a user -->
+       <tr>
+        <td>post</td>
+        <td>/user/:id</td>
+        <td>create a user</td>
+    </tr>
+       <!-- update a user -->
+       <tr>
+        <td>put</td>
+        <td>/user/:id</td>
+        <td>edit/update a user</td>
+    </tr>
+      <!-- delete a user -->
+      <tr>
+        <td>delete</td>
+        <td>/user/:id</td>
+        <td>delete a user</td>
+    </tr>
+     <!-- login a user -->
+     <tr>
+        <td>post</td>
+        <td>/login</td>
+        <td> login a user</td>
+    </tr>
+    </tbody>
+     </table>
+</center>
+<h1>Portfolios</h1>
+<center>
+    <table border="1">
+        <tr>
+    <th>Request</th>
+    <th>Route</th>
+    <th>Description</th>
+        </tr>
+    <tbody>
+        <!-- fetch all portfolios -->
+        <tr>
+            <td>get</td>
+            <td>/portfolios</td>
+            <td>fetch all portfolios</td>
+        </tr>
+          <!-- fetch single portfolio -->
+          <tr>
+            <td>get</td>
+            <td>/portfolio</td>
+            <td>fetch single portfolio</td>
+        </tr>
+       <!-- create a portfolio -->
+       <tr>
+        <td>post</td>
+        <td>/portfolio/:id</td>
+        <td>create a portfolio</td>
+    </tr>
+       <!-- update a portfolio -->
+       <tr>
+        <td>put</td>
+        <td>/portfolio/:id</td>
+        <td>edit/update a portfolio</td>
+    </tr>
+      <!-- delete a portfolio -->
+      <tr>
+        <td>delete</td>
+        <td>/portfolio/:id</td>
+        <td>delete a portfolio</td>
+    </tr>
+     
+    </tbody>
+     </table>
+    
+</center>
+<h1>favourites</h1>
+<center>
+    <table border="1">
+        <tr>
+    <th>Request</th>
+    <th>Route</th>
+    <th>Description</th>
+        </tr>
+    <tbody>
+        <!-- fetch all favourites -->
+        <tr>
+            <td>get</td>
+            <td>/favourites</td>
+            <td>fetch all favourites</td>
+        </tr>
+          <!-- fetch single favourite -->
+          <tr>
+            <td>get</td>
+            <td>/favourite</td>
+            <td>fetch single favourite</td>
+        </tr>
+       <!-- create a favourite -->
+       <tr>
+        <td>post</td>
+        <td>/favourite/:id</td>
+        <td>create a favourite</td>
+    </tr>
+       <!-- update a favourite -->
+       <tr>
+        <td>put</td>
+        <td>/favourite/:id</td>
+        <td>edit/update a favourite</td>
+    </tr>
+      <!-- delete a favourite -->
+      <tr>
+        <td>delete</td>
+        <td>/favourite/:id</td>
+        <td>delete a favourite</td>
+    </tr>
+     
+    </tbody>
+     </table>
+    <br><br><br>
+</center>
+</body>
+</html>
    
 <h1>Users</h1>
 <center>
