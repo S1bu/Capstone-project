@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <NavBar/>
   <div class="container">
      <div class="contact-body">
          <div class="contact-header">
@@ -39,9 +41,17 @@
          </form>
  </div>
   </div>
+  <footerComp/>
+</div>
  </template>
  <script>
+ import NavBar from '@/components/navComp.vue'
+ import  footerComp from '@/components/footerComp.vue'
      export default {
+      components:{
+     NavBar,
+     footerComp
+   }
      }
  </script>
  <style scoped>

@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <NavBar/>
     <div>
       <div id="up-target">
 
@@ -10,15 +12,33 @@
               </form>
               <br>
               <br>
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Sort
-                </button>
-                <ul class="dropdown-menu">
-                  <li><button @click="sortByName">A-z <i class="bi bi-sort-alpha-up"></i></button></li>
-                  <li><button @click="sortByPrice">Price <i style="color:green" class="bi bi-cash-coin"></i></button></li>
-                </ul>
+              <div class="row">
+                <div class="col">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Sort
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><button @click="sortByName">A-z <i class="bi bi-sort-alpha-up"></i></button></li>
+                      <li><button @click="sortByPrice">Price <i style="color:green" class="bi bi-cash-coin"></i></button></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    filter
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><button @click="filterByPriceRange(0, 500)">Below 500 <i class="bi bi-sort-alpha-up"></i></button></li>
+                      <li><button @click="filterByPriceRange(500, 1000)">Above 500 <i style="color:green" class="bi bi-cash-coin"></i></button></li>
+    
+                    </ul>
+                  </div>
+                </div>
               </div>
+             
+            
         </div>
         <div class="content" v-if="Portfolios">
             
@@ -70,18 +90,22 @@
             </center>
           </div>
 
-        
+        </div>
+        <footerComp/>
     </div>
 </template>
 <script>
+import NavBar from '@/components/navComp.vue'
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 import Spinner from '@/components/spinnerComp.vue';
-
+import  footerComp from '@/components/footerComp.vue'
 
 export default {
   components: {
-    Spinner
+    Spinner,
+    NavBar,
+    footerComp
 
   },
   data() {
@@ -109,8 +133,11 @@ export default {
     Portfolios() {
       return this.$store.state.Portfolios;
     },
+ filteredByPrice() {
+    return this.filterPrice();
+  },
 
-
+  // sort
     sortedPortfolios() {
       const filteredPortfolios = this.filteredPortfolios;
 
@@ -126,6 +153,16 @@ export default {
 
       return filteredPortfolios;
     },
+    //filter
+    filterPrice() {
+  return this.Portfolios.filter(portfolio => {
+    const price = portfolio.price;
+    const range1 = price >= 0 && price < 500;
+    const range2 = price >= 500 && price < 1000;
+    return range1 || range2;
+  });
+    },
+    // search
     filteredPortfolios() {
       // Your existing filtering code
          // Convert searchQuery to lowercase for case-insensitive search
@@ -154,6 +191,12 @@ return this.Portfolios.filter((portfolio) => {
     },
     sortByPrice() {
       this.sortBy = "price";
+    },
+    filterByPriceRange(minPrice, maxPrice) {
+      this.filteredPortfolios = this.Portfolios.filter(portfolio => {
+        const price = portfolio.price;
+        return price >= minPrice && price < maxPrice;
+      });
     },
     // add to favour
     Fav(portfolio) {  
@@ -221,8 +264,8 @@ return this.Portfolios.filter((portfolio) => {
  }
  .row{
     font-weight: 700;
-    margin: 10px;
-    width:400px;
+    margin: 10px 5px;
+    width:90%;
  }
  
  h4{
@@ -271,5 +314,23 @@ return this.Portfolios.filter((portfolio) => {
     h1 {
       margin-top: 60%;  
     }
+    .row{
+      width: 100%;
+      margin: 5px 2px;
+    }
+    .col-3 img{
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      aspect-ratio: 3/4;
+   } 
+   .col-3{
+    width:30px
+   }
+
+   .content{
+    justify-content:start;
+   }
+ 
   }
 </style>

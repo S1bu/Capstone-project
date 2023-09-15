@@ -1,38 +1,91 @@
 <template>
+  <div>
+  <NavBar/>
     <div>
   <div class="container-fluid">
    
     <div class="container">
         <div class="row" v-for="user in User" :key="user.userID">
-          <center>
-            <img :src="user.userPic" :alt="user.FirstName">
-          </center>
           <div class="col ">
-            <p>{{ user.userID }}</p>
+            <!-- <p>{{ user.userID }}</p> -->
             <p>Name: {{ user.FirstName }}</p>
             <p>Surname:{{ user.LastName }}</p>
-            <p>Age :{{ user.age }}</p>
-            <p>Gender:{{ user.gender }}</p>
-            <p>Description:{{ user.Description }}</p> 
+            <p>Email:{{ user.emailAdd }}</p> 
           </div>
           <div class="col">
-            <p>Country:</p>
-            <p>City:</p>
-            <p>Email:{{ user.emailAdd }}</p> 
-            <p>Phone: {{ user.phone}} </p>
-            <p>Linkedin:{{ user.linkedinUrl }}</p>
-            <p>instaUrl:{{ user.instaUrl }}</p>
-            <p>facebookUrl:{{ user.facebookUrl }}</p>
-            <h3></h3>
+            <img :src="user.userPic" :alt="user.FirstName">
           </div>
          
         </div>
         <div class="col-12 text-center">
-          <button class="btn"><i class="bi bi-pen-fill"></i>edit details</button>
+          <button class="btn" data-bs-toggle="modal" data-bs-target="#editUser"><i class="bi bi-pen-fill"></i>edit details</button>
           <router-link to="/portfolio"><button class="btn"><i class="bi bi-person-plus-fill"></i>Create portfolio</button></router-link>
         </div>
     </div>
   </div>
+              <!-- Modal for updateuser -->
+<div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form  @submit.prevent="updateUser(user)">
+          <!-- Profile pic -->
+            <div class="mb-3 row">
+              <label for="userPic" class="col-sm-2 col-form-label">profile pic</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="userPic" v-model="payload.userPic" name="userPic">
+              </div>
+            </div>
+            <!-- name -->
+          <div class="mb-3 row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="name" v-model="payload.FirstName" name="name"  >
+            </div>
+          </div>
+          <!-- surname -->
+          <div class="mb-3 row">
+            <label for="Surname" class="col-sm-2 col-form-label">Surname</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="Surname" v-model="payload.LastName" name="Surname" >
+            </div>
+          </div>
+          <!-- age -->
+          <div class="mb-3 row">
+            <label for="age" class="col-sm-2 col-form-label">age</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="age" v-model="payload.age" name="age">
+            </div>
+          </div>
+
+          <!-- email -->
+          <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">e-mail</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="email" v-model="payload.emailAdd" name="email">
+            </div>
+          </div>
+          <!-- password -->
+          <div class="mb-3 row">
+            <label for="password" class="col-sm-2 col-form-label"><i class="bi bi-incognito">Password</i></label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="password" v-model="payload.uPassword" name="password">
+            </div>
+          </div>
+         <center>
+          <button type="submit" class="submit-form" ><i class="bi bi-check">Update</i></button> 
+         </center>
+         
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+ 
   <br>
   <div class="heading">
     <h1>My portfolios</h1>
@@ -84,17 +137,36 @@
     </center>
   </div>
 </div>
+<footerComp/>
 
+</div>
  
 </template>
 <script>
+import NavBar from '@/components/navComp.vue'
 import Spinner from '@/components/spinnerComp.vue';
+import  footerComp from '@/components/footerComp.vue'
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
     export default {
         components: {
-    Spinner
+    Spinner,
+    NavBar,
+    footerComp
+  },
+  data(){
+return {
+  payload: {
+    userPic:"",
+    FirstName:"",
+    LastName:"",
+    emailAdd :"",
+    userRole:"",
+    age:"",
+    uPassword:""
+          },
+}
   },
         computed:{
             User() {
@@ -114,8 +186,73 @@ const { cookies } = useCookies();
     }
         },
         methods:{
+          // update user info
+          updateUser(user) {
+      const userID = user.userID; // Added this line to get the portfolio ID
+      const userToUpdate = this.Portfolios.find(user => user.userID == userID);
+
+      const updated = {
+      // -----------------------------
+      userPic:user.userPic || userToUpdate.userPic,
+    FirstName:user.FirstName || userToUpdate.FirstName,
+    LastName:user.LastName || userToUpdate.LastName,
+    emailAdd :user.emailAdd || userToUpdate.emailAdd,
+    userRole:user.userRole || userToUpdate.userRole,
+    age:user.age || userToUpdate.age,
+    uPassword:user.uPassword || userToUpdate.uPassword
+      }
+
+      this.$store.dispatch('updatePortfolio',{userID,user:updated })
+      this.user = {
+        userPic:'',
+    FirstName:'',
+    LastName:'',
+    emailAdd :'',
+    userRole:'',
+    age:'',
+    uPassword:''
+      }
+    },
+    // update portfolio
+    updatePortfolio(portfolio) {
+      const portfolioID = portfolio.portfolioID; // Added this line to get the portfolio ID
+      const portfolioToUpdate = this.Portfolios.find(portfolio => portfolio.portfolioID == portfolioID);
+
+      const updated = {
+        accountName: portfolio.accountName || portfolioToUpdate.accountName,
+        portfolioiImageUrl:portfolio.portfolioiImageUrl || portfolioToUpdate.portfolioiImageUrl,
+      subject:portfolio.subject || portfolioToUpdate.subject,
+      Description:portfolio.Description || portfolioToUpdate.Description,
+      experience:portfolio.experience || portfolioToUpdate.experience,
+      price:portfolio.price || portfolioToUpdate.price,
+      emailAdd:portfolio.emailAdd || portfolioToUpdate.emailAdd,
+      country:portfolio.country || portfolioToUpdate.country,
+      city:portfolio.city || portfolioToUpdate.city,
+      phone:portfolio.phone || portfolioToUpdate.phone,
+      linkedinUrl:portfolio.linkedinUrl || portfolioToUpdate.linkedinUrl,
+      instaUrl:portfolio.instaUrl || portfolioToUpdate.instaUrl,
+      facebookUrl:portfolio.facebookUrl || portfolioToUpdate.facebookUrl,
+      }
+
+      this.$store.dispatch('updatePortfolio',{portfolioID,portfolio:updated })
+      this.portfolio = {
+        accountName: '',
+        portfolioiImageUrl:'',
+      subject:'',
+      Description:'',
+      experience:'',
+      price:'',
+      emailAdd:'',
+      country:'',
+      city:'',
+      phone:'',
+      linkedinUrl:'',
+      instaUrl:'',
+      facebookUrl:'',
+      }
+    },
+    // delete portfolio
           deletePortfolio(portfolioID) {
-//delete the user by userId
   this.$store.dispatch('deletePortfolio', portfolioID)
 },
         },

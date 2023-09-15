@@ -5,11 +5,11 @@
                 <i class="bi bi-list"></i>
             </button>
         </div>
-        <center>
+        <!-- <center>
             <button class="btn" type="button">
                 <img src="https://i.postimg.cc/LXcsPVqh/logo-200x200-1.png" alt="logo" >
               </button>
-        </center>
+        </center> -->
           <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="staticBackdropLabel"></h5>
@@ -37,7 +37,7 @@
                             <router-link to="/contact"><i class="bi bi-envelope-at-fill"></i>  Contact</router-link>
                         </li>
                         <li>
-                            <router-link to="/admin"><i class="bi bi-journal"></i>  admin</router-link>
+                            <router-link to="/admin" ><i class="bi bi-journal"></i>  admin</router-link>
                         </li>
                         <li>
                             <router-link to="/register"><i class="bi bi-box-arrow-in-right"></i> register</router-link>
@@ -52,12 +52,49 @@
     </nav>
 </template>
 <script>
+import { useCookies } from "vue3-cookies";
+// import authenticateUser from '@/services/authenticateUser';
+
+const { cookies } = useCookies();
     export default {
+        data(){
+       return{
+        admin:false
+       }     
+        },
+  
         methods: {
     logOut() {
       this.$store.dispatch("logOut")
+    },
+    // const cookieValue = cookies.get("human"); //getting values values from cookie named human
+    //   const { result } = cookieValue; 
+    //   const userId = result.userID;
+    async checkifadmin() {
+      const cookieValue = cookies.get("human"); 
+      const { result } = cookieValue;
+      const userID = result.userID;
+
+      try {
+        const userRole = await this.$store.dispatch('portfolios/fetchUserRole', userID);
+
+        if (userRole === 'admin') {
+          this.admin = true;
+        } else {
+          this.admin = false;
+        }
+      } catch (error) {
+        console.error('Error fetching userRole:', error);
+      }
     }
-    }}
+    },
+    created() {
+    this.checkifadmin(); // Call the method when the component is created
+  },
+  mounted() {
+    this.$store.dispatch('fetchPortfolios');
+  }
+  }
 </script>
 <style scoped>
 

@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <NavBar/>
     <div>
 <div class="container">
     <br>
@@ -60,16 +62,22 @@
       </div>
 </div>
     </div>
+    <footerComp/>
+  </div>
 </template>
 
 <script>
+import NavBar from '@/components/navComp.vue'
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 import Spinner from '@/components/spinnerComp.vue';
+import  footerComp from '@/components/footerComp.vue'
 
 export default {
   components: {
-    Spinner
+    Spinner,
+    NavBar,
+    footerComp
   },
   computed: {
     Favourites() {
@@ -188,6 +196,7 @@ export default {
       padding:10px;
       text-align:center;
     }
+  
       @media (width < 700px) {
          .content{
          grid-template-columns:auto;

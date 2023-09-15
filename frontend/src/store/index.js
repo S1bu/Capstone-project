@@ -229,11 +229,12 @@ export default createStore({
       router.push({ name: "dashboard" }); //Programmatically navigate to a new URL
     } else {
       sweet({
-        title: "Error",
-        text: msg,
-        icon: "error",
-        timer: 4000
+        title: "created successfully",
+          text: msg,
+          icon: "success",
+          timer: 4000
       });
+            router.push({ name: "dashboard" })
     }
   } catch (e) {
     context.commit("setMsg", "An error has occured");
@@ -258,9 +259,9 @@ export default createStore({
         router.push({ name: "fav" }); //Programmatically navigate to a new URL
       } else {
         sweet({
-          title: "Error",
+          title: "Added successfully",
           text: msg,
-          icon: "error",
+          icon: "success",
           timer: 4000
         });
       }
@@ -308,8 +309,7 @@ export default createStore({
   async logOut(context) {
     context.commit("setUser")
     cookies.remove("human")
-},
+}
   },
   modules: {},
-});
-
+})

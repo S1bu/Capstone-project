@@ -17,7 +17,7 @@
             <input type="text" class="form-control" id="password" v-model="payload.uPassword" name="password"  required oninvalid="this.setCustomValidity('Please enter your password')" oninput="this.setCustomValidity('')">
           </div>
         </div>
-                <button type="submit" class="btn"><i class="bi bi-check"></i></button>
+                <button type="submit" class="btn">login</button>
       </form>
 </center>
 <br>

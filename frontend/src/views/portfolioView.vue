@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <NavBar/>
     <div class="container">
         <form  @submit.prevent="createPortfolio">
             <div class="Create-portfolio-header">
@@ -99,16 +101,26 @@
                 </div>
               <center>
                 <button type="submit">
-                    Register
+                    create
                 </button>
               </center>
         </form>
     </div>
+    <footerComp/>
+  </div>
 </template>
 <script>
+import NavBar from '@/components/navComp.vue'
+import  footerComp from '@/components/footerComp.vue'
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 export default {
+  
+  components:{
+     NavBar,
+     footerComp
+   }
+,
   data() {
     return {
       newPortfolio: {
@@ -126,6 +138,7 @@ export default {
     instaUrl:"",
     facebookUrl:""
       },
+      
     };
   },
   methods: {

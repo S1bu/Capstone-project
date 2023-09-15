@@ -54,7 +54,9 @@
             </div>
           </div>
          
-          <button type="submit" class="btn btn-primary"><i class="bi bi-check"></i></button> 
+          <button type="submit" class="btn btn-primary">Register</button> 
+          <br>
+          <router-link to="login">Login</router-link>
         </form>
      
     </div>

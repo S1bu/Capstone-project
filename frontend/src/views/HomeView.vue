@@ -15,6 +15,7 @@
 // import { register } from 'register-service-worker';
 
 export default {
+  
   data() {
  
   },

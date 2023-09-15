@@ -73,7 +73,7 @@
               </div>
               <div class="copy-right">
                 <center>
-                    <p> &copy; 2023 IntelliCoach. All rights reserved.</p>
+                    <p> &copy;{{ year }} IntelliCoach. All rights reserved.</p>
                 </center>
               </div>
             </div>
@@ -94,7 +94,11 @@
 
 <script>
     export default {
-        
+        data(){
+            return{
+                year:new Date().getFullYear()
+            }
+        }
     }
 </script>
 
