@@ -13,7 +13,7 @@
             <p>Email:{{ user.emailAdd }}</p> 
           </div>
           <div class="col text-center">
-            <h3>Welcome back  <span class="highlight">{{ user.FirstName }}</span></h3>
+            <h3>Welcome  <span class="highlight">{{ user.FirstName }}</span></h3>
             <img src="https://i.postimg.cc/htGxvCHh/hand-drawn-flat-design-people-waving-illustration-23-2149218831.jpg" width="300px" style="border:1px solid #d5d5d5d;border-radius:10px;padding:5px" :alt="user.FirstName">
           </div>
          
