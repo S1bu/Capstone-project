@@ -13,4 +13,18 @@ body{
 /* @media(width < 700px){
    
 } */
+ table{
+    width: 90%;
+    border-collapse: collapse;
+ }
+
+ td,th{
+    padding: 10px;
+    text-align: center;
+ }
  
+ th{
+    background-color: midnightblue;
+    color: white;
+    font-weight: 700;
+ }
